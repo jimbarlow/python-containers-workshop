@@ -1,0 +1,3 @@
+FROM registry.redhat.io/rhel8/support-tools
+# FROM registry.access.redhat.com/rhel8/support-tools
+

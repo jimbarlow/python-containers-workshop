@@ -7,6 +7,11 @@
 = TODO
 Show how to work containers / docker registry search controls
 
+playbook to register the vms to me
+to install the packages
+and to install the two auth.json files
+
+
 [source,bash]
 sudo vim /etc/containers/registries.conf
 
@@ -41,6 +46,9 @@ pause container is a "keep-alive" and a redirector to the right
 sudo podman run --pod=new:tools-pod -dt 
 
 coloring books / e books
+
+# install the packages needed.
+sudo yum install podman buildah skopeo slirp4netns  -y
 
 Dockerfile Parameters:
 WORKDIR
@@ -109,6 +117,8 @@ Did this bring you to the REPL prompt?
 image::REPL-prompt.png[REPL Prompt]
 
 
+podman run -it --rm rhel8/python-38 /opt/app-root/bin/python
+
 
 [source,python]
  >>> quit()
@@ -116,39 +126,134 @@ image::REPL-prompt.png[REPL Prompt]
 
 Do a `podman ps` command. You should see no containers running:
 
+image:docker-ps.png[podman ps command]
 
+TIP: Should we want to temporarily disconnect from this running container, and come back, (regardless of the --rm flag), do this. From the container connection, issue a ctrl-p ctrl-q. To come back, issue the `docker attach <container-name>` command. Hit `<enter>` if you do not immediately see the connection.
 
 
 === Essential Container Registries
+
+You may have noticed while pulling registries, multiple registries for the containers my be queried before one is found with the container image that we want. Let's take a look at some of this next.
+
 ==== Prioritization of Registries
+
+Run the following command to see the priority order in which the registries are organized:
+
+[source,bash]
+$ cat /etc/containers/registries.conf | grep ^registries
+
+There is a list array of registries in their search order. Registries can be added or removed from this file. Note this one does not currently have quay.io
+
+[source,bash]
+----
+[student3@ansible-1 ~]$  cat /etc/containers/registries.conf | grep ^registries
+registries = ['registry.access.redhat.com', 'registry.redhat.io', 'docker.io']
+registries = []
+registries = []
+----
+
 ==== Dockerhub
+
+This is the registry that started the popularization of Linux Containers. dotCloud, inc invented the Docker format container and this registry to enable ease of access to developers and admins alike. It offers security scanning for an extra fee. Dockerhub also allows, for free, one private repository. Recently there has been concern about throttling of downloads of containers.
 
 ==== Quay.io
 
+Quay is a public registry, owned and hosted by Red Hat. Quay does have "free" security scanning. Quay but does not provide a free tier for repositories. Quay does not throttle. 
+
 ==== Red Hat
+
+The Red Hat official images (except the "ubi") require a subscription to the Red Hat Support Network to obtain these images. We have installed a token so that you do not have to log in with podman or docker to try these.
+
+Official "paid for" container images are hosted at registry.redhat.io, and the "free" images are hosted at registry.access.redhat.com
 
 === Building and running a Python Flask Application Container
 
+We can build flask app containers in several ways. They can be simple flask "debug mode" implementations. Production grade Flask, Django, Pyramid, etc.  applications require a WSGI gateway. Gunicorn is currently popular for such applications.
+
+Container builds are commonly done from a file known as a "Dockerfile", or "Containerfile" that describe how containers are built in layers. Layers are added to immutable under layers in order to provide the "diffs" or differential changes to the image. This is patterned after the good old "tar" (Tape ARchive) format from early long term storage formats in the computer industry.
+
+The following is the "Dockerfile"
+
+[source,python]
+FROM python:3.9-buster
+MAINTAINER Jim Barlow jbarlow@redhat.com
+COPY ./requirements.txt ./helloworld.py .
+WORKDIR /
+RUN pip install -r requirements.txt
+EXPOSE 8080
+CMD ["python", "./helloworld.py"]
+
+The lines below represent the application itself. Put this in a file called helloworld.py
+
+[source,python]
+--
+from flask import Flask, request
+from flask_restful import Resource, Api
+
+application = Flask(__name__)
+api = Api(app)
+
+class Greeting (Resource):
+    def get(self):
+        return 'Hello World!'
+
+api.add_resource(Greeting, '/') # Route_1
+
+if __name__ == '__main__':
+    application.run('0.0.0.0','8080')
+--
+
+
+
+Finally, let's run the command that puts it all together:
+
+[source,bash]
+podman build -f Containerfile.flask -t hello-world
+
+
 ==== UBI: Build from a generic image
+
+Let's start with a build from an "Official Community Dockerhub" base image.
+
+FROM python:3.9-buster
+
+
 ==== The S2I "Source to Image" Build - S2I-Python
+
 ==== Pros / Cons of the Above Approaches
+
 === Accessing Server Based Files
+
 ==== The Copy in Build Approach
+
 ==== The Mounting Approach
+
 ==== Use of a "Data Container"
+
 ==== All about "Persistent Volumes"
+
 === Accessing Database a Step to "Micro-Services"
+
 ==== Build the App and Database Containers
+
 ==== Wiring The Containers Together.
 
 == OpenShift and Python Containers
+
 === Creating the Namespace (Project)
+
 === Using the Git Repository for Source to Image
+
 === Create the App - Pre-built Container
+
 === Create the App - Source to Image
+
 === Health Checks in Kubernetes (OpenShift)
+
 == Serverless 
+
 === Bring Up / Scale Down Containers
+
 ==== HTTP Request Traffic
 
 
@@ -268,7 +373,7 @@ cat > labsetup.yml << UNTILHERE
           - docker
       yum:
         name: "{{ packages_to_install }}" 
-        state: latest
+        state: present
 
     - name: activate namespaces
       become: True
@@ -450,10 +555,7 @@ Once again, substitute the container_id that matches your image if it is not 7cb
 [source,bash]
 podman run --name myapache 7cb4d0eb07a5
 
-Note that a container has been created.   It has a hexadecimal “CONTAINER ID”, but since we specified a name, it can be accessed by either the “CONTAINER ID” or the name, “myapache”.
-
-[source,bash]
-$ podman run -it --rm rhel8/python-38 /opt/app-root/bin/python
+Note that a container has been created.   It has a hexadecimal “CONTAINER ID”, but shttps://github.com/IBM/python-ubi-openshift
 
 Note also, we started the container, and it is running in the foreground.
 We didn’t use the “-d” flag to put it into background.  
@@ -1023,7 +1125,7 @@ https://access.redhat.com/containers/#/explore[Link: Browsable Red Hat Container
 
 https://www.redhat.com/en/blog/using-rootless-containers-tech-preview-rhel-80[Blog Article: Scott McCarty's Using Rootless Containers]
 
-
+https://github.com/IBM/python-ubi-openshift IBMs python-ubi tutorial for OpenShift
 
 
 

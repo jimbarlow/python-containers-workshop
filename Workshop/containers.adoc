@@ -1,5 +1,6 @@
 //{set:imagesdir:images}
 :gitrepo: https://github.com/jimbarlow/python-containers-workshop
+:includedir: chapters
 :imagesdir: images 
 :pygments-style: emacs
 :source-highlighter: pygments
@@ -22,7 +23,7 @@ endif::[]
 [discrete]
 == TODO
 
-  * link:{includedir}/abstract.adoc[About This Workshop]
+  * link:{includedir}/TODO.adoc[Work Still in Progress]
 
 == Containers on a Red Hat Server
 Containers running on a Red Hat server will be our initial use case for today. We will be using Red Hat Enterprise Linux, and build the containers on this platform, and run them on the platform as well.

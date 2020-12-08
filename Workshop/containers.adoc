@@ -45,7 +45,7 @@ endif::[]
 [discrete]
 == Docker and Podman Commands -- an Introduction
 
-  * link:{includedir}/Isolation_Use_Case.adoc[]
+  * link:{includedir}/docker_and_podman_commands.adoc[Getting Hands-On with Containers]
 
 [discrete]
 

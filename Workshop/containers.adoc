@@ -25,19 +25,26 @@ endif::[]
 
   * link:{includedir}/TODO.adoc[Work Still in Progress]
 
-== Containers on a Red Hat Server
-Containers running on a Red Hat server will be our initial use case for today. We will be using Red Hat Enterprise Linux, and build the containers on this platform, and run them on the platform as well.
+[discrete]
+== What Are Containers?
 
-Red hat provides some Builder images that are terrific for ease of use both in the build and deployment scenarios.
+  * link:{includedir}/what_are_containers.adoc[Let's take a look at the basics]
 
-=== Docker and Podman Commands - an Introduction
-
-```Hello from Docker!
-This message shows that your installation appears to be working correctly.
-```
+[discrete]
+== System Python Versions Use Case
 
 
-==== System vs. Application Python Instances
+  * link:{includedir}/Isolation_Use_Case.adoc[]
+
+
+[discrete]
+== Accessing your Containers Environment
+
+  * link:{includedir}/Isolation_Use_Case.adoc[]
+
+
+
+=== System vs. Application Python Instances
 We all know that it is not good to use the "system python." In some cases it is tied to the install and maintenance utilities. If you link /usr/bin/python -> /usr/bin/python37 in Red Hat Linux, yum (installation, updates) utilities break. 
 
 Let's use Containers to provide this separation
@@ -265,13 +272,6 @@ image::not-a-robot.png[Free Account]
 
 TIP:  I recommend that you check "I am not a robot (even if you really are a robot!)"
 
-=== Exercise: Deploying your first container
-
-It is a good idea to know about two different tools for container management. The "original" is Docker, or Moby (community edition of docker). 
-The Docker interests and Kubernetes interests diverged in priority once Kubernetes was released ~5 years ago. The Kubernetes (Cloud Native Compute Foundation) embraced the "Open Container Initiative" 
-
-[source,bash]
-sudo docker run hello-world
 
 
 

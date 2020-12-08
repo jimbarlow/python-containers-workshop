@@ -1,0 +1,45 @@
+
+:sectnums:
+:sectnumlevels: 3
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+endif::[]
+
+
+= Accessing Your Containers Environment.
+
+
+== The Environment
+
+Your instructor will provide you with an SSH (Secure Shell) remote address so that you can log into your instance.
+
+TIP: You can log in from the command line of Linux, Windows, or Macintosh. Some users of Windows prefer an application such as cmder [1] or putty.exe [2]. 
+
+Your username will be student. So log in as student:
+
+[source,bash]
+$ ssh student@xx.xx.xx.xx 
+
+
+
+
+== Exercise: Deploying your first container
+
+It is a good idea to know about two different tools for container management. The "original" is Docker, or Moby (community edition of docker). 
+The Docker interests and Kubernetes interests diverged in priority once Kubernetes was released ~5 years ago. The Kubernetes (Cloud Native Compute Foundation) embraced the "Open Container Initiative" 
+
+
+
+
+
+[1] https://cmder.net/
+
+[2] https://www.putty.org/
+
+
+link:../containers.adoc[Return to workshop top page]
+

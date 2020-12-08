@@ -12,6 +12,10 @@ endif::[]
 
 = The Python Isolation Use Case
 
+== System vs. Application Python Instances
+We all know that it is not good to use the "system python." In some cases it is tied to the install and maintenance utilities. If you link /usr/bin/python -> /usr/bin/python37 in Red Hat Linux, yum (installation, updates) utilities break. 
+
+Let's use Containers to provide this separation
 
 
 

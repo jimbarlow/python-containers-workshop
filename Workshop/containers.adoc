@@ -33,21 +33,25 @@ endif::[]
 [discrete]
 == System Python Versions Use Case
 
-
-  * link:{includedir}/Isolation_Use_Case.adoc[]
+  * link:{includedir}/Isolation_Use_Case.adoc[The Environment Isolation Use Case]
 
 
 [discrete]
 == Accessing your Containers Environment
 
+  * link:{includedir}/Logging_into_your_environment[Accessing your Workshop Environment]
+
+
+[discrete]
+== Docker and Podman Commands -- an Introduction
+
   * link:{includedir}/Isolation_Use_Case.adoc[]
 
+[discrete]
 
 
-=== System vs. Application Python Instances
-We all know that it is not good to use the "system python." In some cases it is tied to the install and maintenance utilities. If you link /usr/bin/python -> /usr/bin/python37 in Red Hat Linux, yum (installation, updates) utilities break. 
 
-Let's use Containers to provide this separation
+
 
 
 ==== Interacting with a Python Container

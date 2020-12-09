@@ -80,7 +80,7 @@ UNTILHERE
 Finally, let's run the command that puts it all together:
 
 [source,bash]
-$ podman build -f Containerfile.helloworld -t hello-world
+$ podman build -f Dockerfile.hello-world -t hello-world-py
 
 
 ==== UBI: Build from a generic image

@@ -142,10 +142,28 @@ TIP: Should we want to temporarily disconnect from this running container, and c
 
 To remove a container that is stopped, first identify it with the `podman ps -a` command.
 
-The container can be removed by using the 
+When we ran this command above, remember that this was the result:
+
+```
+[student@podman ~]$ podman ps -a
+CONTAINER ID  IMAGE                                 COMMAND  CREATED      STATUS                  PORTS  NAMES
+bd0c7724a9b6  docker.io/library/hello-world:latest  /hello   2 hours ago  Exited (0) 2 hours ago         keen_gates
+```
+
 
 [source,bash]
-$ podman rm 
+$ podman rm bd0
+tip: We do not have to use the 12 character hexadecimal NAME, or the synthesized name `keen_gates` The first three letters of the hex representation are enough.
+
+The above command yields:
+```
+[student@podman ~]$ podman rm bd0
+bd0c7724a9b64a336933a455a3b4b4a1f01ec8e322531a4032dd4271cd376201
+[student@podman ~]$ 
+```
+
+Wow! That three character abbreviation saved us from typing 61 additional characters.
+
 
 
 link:../containers.adoc[Return to workshop top page]

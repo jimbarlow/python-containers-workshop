@@ -10,6 +10,7 @@ endif::[]
 
 = TODO for the Workshop
 
+podman run -it --rm ubi8/python-38 /opt/app-root/bin/python
 
 Show how to work containers / docker registry search controls
 

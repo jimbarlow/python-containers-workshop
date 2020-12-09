@@ -77,7 +77,7 @@ TIP: Should we want to temporarily disconnect from this running container, and c
 Let
 
 
-=== Essential Container Registries
+== Essential Container Registries
 
 You may have noticed while pulling registries, multiple registries for the containers my be queried before one is found with the container image that we want. Let's take a look at some of this next.
 

@@ -89,7 +89,7 @@ $ podman ps
 
 Shows nothing is running:
 
-image:podman-ps[Nothing to see here, folks!]
+image:podman-ps.png[Nothing to see here, folks!]
 
 [source,bash]
 $ podman ps -a   # -a means (all)
@@ -106,9 +106,13 @@ Please note the reference to the IMAGE in the second column `docker.io/library/h
 
 Let's take a look at the images on the machine:
 
-image:podman-images.png[Here they are]
+image:podman-images.png[Here they are] 
 
-== More Interaction
+We'll see as we go along that many containers may shae the same image for their container.
+
+To clean up, we'll 
+
+=== Podman Run
 
 So, we saw the obligatory hello-world, that validated our environment. Now let's play with more interesting containers and learn some commands
 
@@ -120,11 +124,12 @@ Did this bring you to the REPL prompt?
 
 image::REPL-prompt.png[REPL Prompt]
 
-
-podman run -it --rm ubi8/python-38 /opt/app-root/bin/python
+the -it (Interactive Terminal) flag allows one to type within the REPL console. Go ahead, and type "import os" of you feel the need!
 
 [source,python]
  >>> quit()
+
+The `--rm` flag removed the container once it is stopped.  This is extremely handy when one is building containers, and a change is needed. There is no need to go into the terminal and delete the container in order to reuse the container name.
 
 
 Do a `podman ps` command. You should see no containers running:
@@ -133,6 +138,15 @@ image:docker-ps.png[podman ps command]
 
 TIP: Should we want to temporarily disconnect from this running container, and come back, (regardless of the --rm flag), do this. From the container connection, issue a ctrl-p ctrl-q. To come back, issue the `docker attach <container-name>` command. Hit `<enter>` if you do not immediately see the connection.
 
+=== Docker container removal
+
+To remove a container that is stopped, first identify it with the `podman ps -a` command.
+
+The container can be removed by using the 
+
+[source,bash]
+$ podman rm 
 
 
 link:../containers.adoc[Return to workshop top page]
+

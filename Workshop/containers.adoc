@@ -50,31 +50,17 @@ endif::[]
 [discrete]
 
 
-==== Interacting with a Python Container
+== Building Containers
 
-[source,bash]
-podman run -it --rm python:3.9-buster 
+  * link:{includedir}/building_python_containers.adoc[Building Python Containers]
 
 
-Did this bring you to the REPL prompt?
 
-image::REPL-prompt.png[REPL Prompt]
 
 
 podman run -it --rm ubi8/python-38 /opt/app-root/bin/python
 
 
-[source,python]
- >>> quit()
-
-
-Do a `podman ps` command. You should see no containers running:
-
-image:docker-ps.png[podman ps command]
-
-TIP: Should we want to temporarily disconnect from this running container, and come back, (regardless of the --rm flag), do this. From the container connection, issue a ctrl-p ctrl-q. To come back, issue the `docker attach <container-name>` command. Hit `<enter>` if you do not immediately see the connection.
-
-Let
 
 
 == Essential Container Registries
@@ -112,86 +98,7 @@ The Red Hat official images (except the "ubi") require a subscription to the Red
 
 Official "paid for" container images are hosted at registry.redhat.io, and the "free" images are hosted at registry.access.redhat.com
 
-=== Building and running a Python Flask Application Container
 
-We can build flask app containers in several ways. They can be simple flask "debug mode" implementations. Production grade Flask, Django, Pyramid, etc.  applications require a WSGI gateway. Gunicorn is currently popular for such applications.
-
-Container builds are commonly done from a file known as a "Dockerfile", or "Containerfile" that describe how containers are built in layers. Layers are added to immutable under layers in order to provide the "diffs" or differential changes to the image. This is patterned after the good old "tar" (Tape ARchive) format from early long term storage formats in the computer industry.
-
-==== Build from a generic image from a "Community Official" image
-
-The following is the "Dockerfile". In this case, we are choosing to call it the "Containerfile.flask".  The `-f`
-parameter will ensure that the Docker Build command finds it definition file.
-
-[source,python]
-FROM python:3.9-buster
-MAINTAINER Jim Barlow jbarlow@redhat.com
-COPY ./requirements.txt ./helloworld.py .
-WORKDIR /
-RUN pip install -r requirements.txt
-EXPOSE 8080
-CMD ["python", "./helloworld.py"]
-
-The lines below represent the application itself. Put this in a file called helloworld.py
-
-[source,python]
---
-from flask import Flask, request
-from flask_restful import Resource, Api
-
-application = Flask(__name__)
-api = Api(app)
-
-class Greeting (Resource):
-    def get(self):
-        return 'Hello World!'
-
-api.add_resource(Greeting, '/') # Route_1
-
-if __name__ == '__main__':
-    application.run('0.0.0.0','8080')
---
-
-Finally, let's run the command that puts it all together:
-
-[source,bash]
-podman build -f Containerfile.flask -t hello-world
-
-
-==== UBI: Build from a generic image
-
-Let's start with a build from an "Official Community Dockerhub" base image.
-
-[source, config]
-FROM registry.access.redhat.com/ubi8/ubi
-RUN yum install -y python3 ; yum clean all
-COPY ./requrements.txt /app/requirements.txt
-WORKDIR /app
-RUN python3 -m pip install -r requirements.txt
-COPY ./src /app/src
-EXPOSE 8080
-ENTRYPOINT ["python3"]
-CMD ["src/main.py"]
-
-Here is our slightly different application:
-
-[source,python]
---
-from flask import Flask, request
-from flask_restful import Resource, Api
-
-application = Flask(__name__)
-api = Api(app)
-
-class Greeting (Resource):
-    def get(self):
-        return 'Hello World!'
-
-api.add_resource(Greeting, '/') # Route_1
-
-if __name__ == '__main__':
-    application.run('0.0.0.0','8080')
---
 
 
 ==== The S2I "Source to Image" Build - S2I-Python

@@ -1,5 +1,5 @@
 :sectnums:
-:sectnumlevels: 3
+:sectnumlevels: 4
 ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
@@ -8,23 +8,34 @@ ifdef::env-github[]
 :warning-caption: :warning:
 endif::[]
 
-= TODO for the Workshop
-
-
-= Containers Basics
+== Containers Basics
 
 Containers run on the Linux operating system[1]. 
 
 
 There are "Docker Containers" for Window Container Basics, but the majority of containers for Kubernetes run on Linux clustered hosts. These hosts are run on AWS (Amazon Web Services), so hopefully your firewall will not block that.
 
-We will work within a RHEL (Red Hat Enterprise Linux) instance in order to orient ourselves with, and develop container images.
+We will work within a RHEL (Red Hat Enterprise Linux) instance in order to orient ourselves with, and develop container images
 
-
-== Containers on a Red Hat Server
+=== Containers on a Red Hat Server
 Containers running on a Red Hat server will be our initial use case for today. We will be using Red Hat Enterprise Linux, and build the containers on this platform, and run them on the platform as well.
 
 Red hat provides some Builder images that are terrific for ease of use both in the build and deployment scenarios.
+
+=== The Red Hat Prescribed Way
+We will take some time to outline what and why we do things a certain way at Red Hat. 
+
+These methods certainly are not required, but our focus is on security and reliability, so we offer these methods as guidance.
+
+These methods involve using base images that are curated and updated by Red Hat, and in a secured registry.
+
+=== Containers live in Registries
+
+Containers may be built in the cloud, on your desktop system, or even automated builds through a CI/CD pipeline. 
+
+Once they are built, your organization may want these containers stored in a secured registry. There are multiple offerings, in the cloud, and on premises, for registries.
+
+Later in the workshop we will tag and push images into these registries so that they are available for use on their destination platforms.
 
 
 

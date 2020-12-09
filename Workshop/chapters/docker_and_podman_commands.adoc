@@ -164,6 +164,31 @@ bd0c7724a9b64a336933a455a3b4b4a1f01ec8e322531a4032dd4271cd376201
 
 Wow! That three character abbreviation saved us from typing 61 additional characters.
 
+Let's get rid of the image left behind as well. It doesn't hurt to leave images cached on your machine, but we will never need "hello-python" again.
+
+[source,bash]
+$ podman images
+
+Output:
+```
+REPOSITORY                      TAG      IMAGE ID       CREATED         SIZE
+docker.io/library/hello-world   latest   bf756fb1ae65   11 months ago   20 kB
+[student@podman ~]$ 
+````
+
+Which tells us we can remove that image with:
+
+[source,bash]
+podman rmi bf7
+
+```
+[student@podman ~]$ podman images
+REPOSITORY                      TAG      IMAGE ID       CREATED         SIZE
+docker.io/library/hello-world   latest   bf756fb1ae65   11 months ago   20 kB
+[student@podman ~]$ 
+```
+
+We will use a few more basic commands as we move along into more useful containers.
 
 
 link:../containers.adoc[Return to workshop top page]

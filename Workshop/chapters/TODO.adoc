@@ -8,7 +8,9 @@ ifdef::env-github[]
 :warning-caption: :warning:
 endif::[]
 
-= TODO for the Workshop
+= TODO catch basin for the Workshop
+
+TIP: Should we want to temporarily disconnect from this running container, and come back, (regardless of the --rm flag), do this. From the container connection, issue a ctrl-p ctrl-q. To come back, issue the `docker attach <container-name>` command. Hit `<enter>` if you do not immediately see the connection.
 
 podman run -it --rm ubi8/python-38 /opt/app-root/bin/python
 

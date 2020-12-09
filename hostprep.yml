@@ -1,0 +1,54 @@
+---
+- name: Playbook to set up namespaces for the lab exercises
+  hosts: all
+  vars:
+
+  tasks:
+    - name: Update RHEL to Current
+      become: True
+      yum:
+        name: '*'
+        state: latest
+
+    - name: Ensure some packages are installed
+      vars:
+        packages_to_install:
+          - jq
+          - git
+          - vim
+          - nano
+      yum:
+        name: "{{ packages_to_install }}"
+        state: present
+
+    - name: activate namespaces
+      become: True
+      sysctl:
+        name: user.max_user_namespaces
+        value: '15000'
+        sysctl_set: yes
+        state: present
+        reload: yes
+
+    - name: set subuid properly
+      become: True
+      lineinfile:
+        path: /etc/subuid
+          # line: "{{ jbarlow }}:100000:65536"
+        line: "jbarlow:100000:65536"
+        create: yes
+
+    - name: set subgid file properly
+      become: True
+      lineinfile:
+        path: /etc/subgid
+          # line: "{{ jbarlow }}:100000:65536"
+        line: "jbarlow:100000:65536"
+        create: yes
+
+    - name: reboot the system
+      become: True
+      shell: ( sleep 3 && /sbin/reboot & )
+      async: 0
+      poll: 0
+

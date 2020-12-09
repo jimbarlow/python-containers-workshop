@@ -21,18 +21,6 @@ There are "Docker Containers" for Window Container Basics, but the majority of c
 We will work within a RHEL (Red Hat Enterprise Linux) instance in order to orient ourselves with, and develop container images.
 
 
-=== Docker and Podman Commands - an Introduction
-
-
-
-[source,bash]
-sudo docker run hello-world
-
-```Hello from Docker!
-This message shows that your installation appears to be working correctly.
-```
-
-
 == Containers on a Red Hat Server
 Containers running on a Red Hat server will be our initial use case for today. We will be using Red Hat Enterprise Linux, and build the containers on this platform, and run them on the platform as well.
 

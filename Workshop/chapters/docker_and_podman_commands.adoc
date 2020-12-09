@@ -1,5 +1,6 @@
 :sectnums:
 :sectnumlevels: 3
+:imagesdir: ../images 
 ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
@@ -10,10 +11,70 @@ endif::[]
 
 = Docker and Podman Commands -- an Introduction
 
+== Hello World from Docker
+
+We are going to install the docker daemon into our RHEL in order to run some of these exercises
+
+[source,bash]
+$ sudo yum install docker -y
+
+Here is our success indicator:
+
+image:docker_installed.png[Docker Installed]
+
+Our next step is to start and enable the docker daemon on this system
+
+[source,bash]
+--
+$ sudo systemctl enable docker && sudo systemctl start docker
+$ sudo systemctl status docker
+--
+
+This is what we wan to see: acitve(running)
+
+image:docker-running.png[It is alive!]
+
+Now for the test, the helloworld is the classic docker daemon test of the system
 
 
+[source,bash]
+$ sudo docker run hello-world
 
+image:docker-hello-world.png[Successfull-result]
 
+== So, What about Podman?
+
+podman, buildah, and skopeo are tools meant for people who have a couple of concerns.
+
+  1) They don't want a monolithic privileged "all purpose" daemon that required root equivalent privileges for developers
+
+  2) Concerns about mismatch between versions of the docker daemon and Kubernetes distributions.
+
+These concerns have been addressed, over the last couple of years by the creation of the crio tools (those we will talk about today), and a reworking of replacing the docker daemon with "containerd" for many use cases.
+
+Either one of these approaches result in containers that are standardized to CRE (Container Runtime Initiative), and in the end both strategies result in the container being run by the "runc" executive process on Linux
+
+Podman is introduced here as a plug-in replacement for Docker, and it is used particularly in RHEL 8.x
+
+You can read more about it link:https://www.redhat.com/en/blog/why-red-hat-investing-cri-o-and-podman[here], but as an end-user or kubernetes user, either does the same thing.
+
+== Installing Podman
+
+[source,bash]
+$ sudo yum install podman -y
+
+That's it, there is no daemon to enable or start.
+
+So let's redo the "hello-world" exercise with podman:
+
+[source,bash]
+$ podman run hello-world
+
+NOTE: We did not run with sudo on the above command. podman can run containers rootless.
+
+Here is the result of that run:
+
+image:hello-world-podman.png[It's the same as with docker]
 
 
 link:../containers.adoc[Return to workshop top page]

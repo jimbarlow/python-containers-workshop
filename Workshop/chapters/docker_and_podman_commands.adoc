@@ -78,3 +78,28 @@ image:hello-world-podman.png[It's the same as with docker]
 
 
 link:../containers.adoc[Return to workshop top page]
+
+== More Interaction
+
+So, we saw the obligatory hello-world, that validated our environment. Now let's play with more interesting containers and learn some commands
+
+[source,bash]
+podman run -it --rm python:3.9-buster 
+
+
+Did this bring you to the REPL prompt?
+
+image::REPL-prompt.png[REPL Prompt]
+
+
+podman run -it --rm ubi8/python-38 /opt/app-root/bin/python
+
+[source,python]
+ >>> quit()
+
+
+Do a `podman ps` command. You should see no containers running:
+
+image:docker-ps.png[podman ps command]
+
+TIP: Should we want to temporarily disconnect from this running container, and come back, (regardless of the --rm flag), do this. From the container connection, issue a ctrl-p ctrl-q. To come back, issue the `docker attach <container-name>` command. Hit `<enter>` if you do not immediately see the connection.

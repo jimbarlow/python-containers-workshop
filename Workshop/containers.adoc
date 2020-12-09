@@ -293,20 +293,6 @@ UNTILHERE
 
 The above creates an ansible "yaml" file, as denoted by the labsetup.yml.   Run the following command in order to update your lab system:
 
-[source,bash]
-----
-$ ansible-playbook labsetup.yml --ask-become-pass
-
-# when asked for the BECOME: password, enter your login password.   
-# This is much like sudo.
-----
-
-This will cause the operating system to update to RHEL 7.7, which is our desired version.   If you look closely at the "labsetup.yml" file, you can probably see that it also sets an operating system parameter to allow user namespaces.   The playbook also configures /etc/subuid and /etc/subgid files, so that your username will be able to run containers as your own user.  Therefore, OCI Tools DO NOT need to run as root.
-
-Note that we are installing *but not running or enabling* the docker daemon.   We will do some labs with docker too.
-
-Wait a few moments before re-logging into the RHEL Instance.   The reboot will be less than a minute.
-
 [source:bash]
 ----
 ssh studentXX@xxx.xxx.xxx.xxx  
@@ -314,12 +300,7 @@ ssh studentXX@xxx.xxx.xxx.xxx
 # ip address.
 ----
 
-We now have an up-to-date version of RHEL 7 for use as a container development system.   This could also be a RHEL 8 or a recent Fedora system.
 
-Next, we will install podman, buildah, and skopeo tools, which run “daemonless”, and are well suited for secure container builds.  We will also install docker in order to compare and contrast the two container runtime approaches.
-
-NOTE: We are having you install these manually so you can see what software is needed on the system. 
-Note: Later we will install docker, but docker is NOT NEEDED to run containers with Podman.
 
 [source,bash]
 ----

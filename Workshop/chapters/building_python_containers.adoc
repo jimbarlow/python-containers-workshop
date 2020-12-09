@@ -32,19 +32,34 @@ Container builds are commonly done from a file known as a "Dockerfile", or "Cont
 The following is the "Dockerfile". In this case, we are choosing to call it the "Containerfile.flask".  The `-f`
 parameter will ensure that the Docker Build command finds it definition file.
 
-[source,python]
+While this is a Flask "hello world", we will not use the default port of 5000. We will use 8080 as that is a good port to use in OpenShift, but you can use whatever you want with a little more effort.
+
+
+[source,bash]
+cat > Dockerfile.hello-world <<UNTILHERE
 FROM python:3.9-buster
-MAINTAINER Jim Barlow jbarlow@redhat.com
+MAINTAINER YourNameHere imnota@yahoo.com
 COPY ./requirements.txt ./helloworld.py .
 WORKDIR /
 RUN pip install -r requirements.txt
 EXPOSE 8080
 CMD ["python", "./helloworld.py"]
+UNTILHERE
+
+The lines below populate the requirements.txt so that pip can do it's job. IRL (In Real Life) you would probably want to use an on-site or curated pip repository. Of course, you would also care about specifying versions of the installed modules. Today, flask is at 1.1.2.
+
+[source,bash]
+cat > requirements.txt <<UNTILHERE
+flask==1.1.2
+UNTILHERE
+
 
 The lines below represent the application itself. Put this in a file called helloworld.py
 
+
 [source,python]
 --
+cat > helloworld.py <<UNTILHERE
 from flask import Flask, request
 from flask_restful import Resource, Api
 
@@ -59,12 +74,13 @@ api.add_resource(Greeting, '/') # Route_1
 
 if __name__ == '__main__':
     application.run('0.0.0.0','8080')
+UNTILHERE
 --
 
 Finally, let's run the command that puts it all together:
 
 [source,bash]
-podman build -f Containerfile.flask -t hello-world
+$ podman build -f Containerfile.helloworld -t hello-world
 
 
 ==== UBI: Build from a generic image

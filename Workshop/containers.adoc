@@ -50,10 +50,6 @@ endif::[]
 [discrete]
 
 
-
-
-
-
 ==== Interacting with a Python Container
 
 [source,bash]

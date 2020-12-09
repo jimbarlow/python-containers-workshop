@@ -76,8 +76,37 @@ Here is the result of that run:
 
 image:hello-world-podman.png[It's the same as with docker]
 
+Please note, when I created this screenshot, I had already had this image on my machine. You will have seen podman go through a list of sources, before getting this "official community python" container image from dockerhub.  We'll have more on these repositories later.
 
-link:../containers.adoc[Return to workshop top page]
+The "Hello from Docker!" response came from the same source image container despite using podman rather than docker. Podman and Docker are basically identical in operation.
+
+=== Podman ps
+
+This will show us the running containers, containers run as Linux processes, so the ps (process status) command terminology is appropriate.
+
+[source,bash]
+$ podman ps
+
+Shows nothing is running:
+
+image:podman-ps[Nothing to see here, folks!]
+
+[source,bash]
+$ podman ps -a   # -a means (all)
+
+Shows this result:
+
+image:podman-ps-a.png[There was an image left on the machine]
+
+This shows there is a stopped "container" on the machine.
+
+tip: A stopped container can be restarted with the start flag on docker or podman
+
+Please note the reference to the IMAGE in the second column `docker.io/library/hello-world:latest`. This shows the repository from which it came, allong with the tag, the implicit `latest`.
+
+Let's take a look at the images on the machine:
+
+image:podman-images.png[Here they are]
 
 == More Interaction
 
@@ -103,3 +132,7 @@ Do a `podman ps` command. You should see no containers running:
 image:docker-ps.png[podman ps command]
 
 TIP: Should we want to temporarily disconnect from this running container, and come back, (regardless of the --rm flag), do this. From the container connection, issue a ctrl-p ctrl-q. To come back, issue the `docker attach <container-name>` command. Hit `<enter>` if you do not immediately see the connection.
+
+
+
+link:../containers.adoc[Return to workshop top page]

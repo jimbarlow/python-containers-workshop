@@ -191,44 +191,53 @@ root@f283db2a2d71:/# which python
 root@f283db2a2d71:/# 
 ```
 
-NOTE: my application landed in root, this could be changed by putting it into a working directory in the `Dockerfile.flask` build file
-
-
-
-
+NOTE: my application landed in root, this could be changed by putting it into a 'WORKDIR' working directory in the `Dockerfile.flask` build file
 
 
 ==== UBI: Build from a generic image
 
-Let's start with a build from an "Official Community Dockerhub" base image.
-
-[source, config]
+[source,bash]
+mkdir -p src
+cat > app/Dockerfile.ubi <<UNTILHERE
 FROM registry.access.redhat.com/ubi8/ubi
-RUN yum install -y python3 ; yum clean all
-COPY ./requrements.txt /app/requirements.txt
+RUN yum install -y python3 && yum clean all
+COPY ./requirements.txt /app/requirements.txt
 WORKDIR /app
 RUN python3 -m pip install -r requirements.txt
 COPY ./src /app/src
 EXPOSE 8080
 ENTRYPOINT ["python3"]
 CMD ["src/main.py"]
+UNTILHERE
+--
+
+Here is our requirements file:
+
+
 
 Here is our slightly different application:
 
 [source,python]
 --
+cat > src/hello-ubi-py <<UNTILHERE
 from flask import Flask, request
 from flask_restful import Resource, Api
 
 application = Flask(__name__)
-api = Api(app)
+api = Api(application)
 
 class Greeting (Resource):
     def get(self):
-        return 'Hello World!'
+        return 'Hello World from a generic Universal Base Image optimized for RHEL! try hitting this resource at /python_version'
+
+class PythonVersion (Resource):
+    def get(self):
+        return (python --version)
 
 api.add_resource(Greeting, '/') # Route_1
+api.add_resource(PythonVersion, '/python_version') # Route_2
 
 if __name__ == '__main__':
     application.run('0.0.0.0','8080')
+UNTILHERE
 --

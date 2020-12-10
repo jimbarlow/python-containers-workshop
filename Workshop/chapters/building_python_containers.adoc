@@ -16,7 +16,7 @@ There are two several ways in which one can build a container.
 
 One method that is very easy is to start a container, make changes to the container while it is running, and do a docker commit.  This works, but should you find an error or vulnerability in the base container layers, these are difficult to fix.
 
-tip: Container guilds, such as "docker build" strategies provide an "infrastructure as code" replicable solution
+TIP: Container guilds, such as "docker build" strategies provide an "infrastructure as code" replicable solution
 
 == Dockerfile or Containerfile Use
 
@@ -172,7 +172,7 @@ We will be running this container in the foreground, but *not* using -it for int
    Use a production WSGI server instead.
  * Debug mode: off
  * Running on http://0.0.0.0:8080/ (Press CTRL+C to quit)
-````
+```
 
 curl or browser access port 8080 on your machine to prove out the implementation.
 

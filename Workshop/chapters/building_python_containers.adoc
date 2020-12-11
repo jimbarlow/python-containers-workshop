@@ -26,21 +26,14 @@ You may have heard the term "Dockerfile" used as the descriptor of a container b
 
 We can build flask app containers in several ways. They can be simple flask "debug mode" implementations. Production grade Flask, Django, Pyramid, etc.  applications require a WSGI gateway. Gunicorn is currently popular for such applications.
 
-Container builds are commonly done from a file known as a "Dockerfile", or "Containerfile" that describe how containers are built in layers. Layers are added to immutable under layers in order to provide the "diffs" or differential changes to the image. This is patterned after the good old "tar" (Tape ARchive) format from early long term storage formats in the computer industry.
-
-==== Build from a generic image from a "Community Official" image
-
-The following is the "Dockerfile". In this case, we are choosing to call it the "Containerfile.flask".  The `-f`
-parameter will ensure that the Docker Build command finds it definition file.
-
-While this is a Flask "hello world", we will not use the default port of 5000. We will use 8080 as that is a good port to use in OpenShift, but you can use whatever you want with a little more effort.
+Container builds are commonly done from a file known as a "Dockerfile", or "Containerfile" that describe how containers are built in layers. Layers are added to immutable under layers in order to provide the "diffs" or differential changes to the image. This is patterned after the good old "tar" (Tape ARchive) format from early long term storage formats in the computer industry.e.hello-worlld", we will not use the default port of 5000. We will use 8080 as that is a good port to use in OpenShift, but you can use whatever you want with a little more effort.
 
 
 [source,bash]
 cat > Dockerfile.hello-world <<UNTILHERE
 FROM python:3.9-buster
 MAINTAINER YourNameHere imnota@yahoo.com
-COPY ./requirements.txt ./helloworld.py .
+COPY ./requirements.txt ./helloworld.py ./
 WORKDIR /
 RUN pip install -r requirements.txt
 EXPOSE 8080
@@ -101,15 +94,7 @@ STEP 4: WORKDIR /
 db42f3cfc1175087e2eac9ae0c57ab275b2481c45b345b06dc9805b58da52de0
 STEP 5: RUN pip install -r requirements.txt
 Collecting flask==1.1.2
-  Downloading Flask-1.1.2-py2.py3-none-any.whl (94 kB)
-     |████████████████████████████████| 94 kB 1.1 MB/s 
-Collecting flask_restful==0.3.8
-  Downloading Flask_RESTful-0.3.8-py2.py3-none-any.whl (25 kB)
-Collecting aniso8601>=0.82
-  Downloading aniso8601-8.1.0-py2.py3-none-any.whl (44 kB)
-     |████████████████████████████████| 44 kB 854 kB/s 
-Collecting click>=5.1
-  Downloading click-7.1.2-py2.py3-none-any.whl (82 kB)
+  Downloading Flask-1.1.2-py2.pe.hello-worly3-none-any.whl (82 kB)
      |████████████████████████████████| 82 kB 357 kB/s 
 Collecting itsdangerous>=0.24
   Downloading itsdangerous-1.1.0-py2.py3-none-any.whl (16 kB)

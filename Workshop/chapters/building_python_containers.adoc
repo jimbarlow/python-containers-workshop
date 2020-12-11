@@ -404,8 +404,38 @@ This outputs:
 [2020-12-11 03:05:05 +0000] [36] [INFO] Worker exiting (pid: 36)
 [2020-12-11 03:05:05 +0000] [35] [INFO] Worker exiting (pid: 35)
 [2020-12-11 03:05:06 +0000] [1] [INFO] Shutting down: Master
-
 ```
 NOTE: This builder image properly implements the code using gunicorn for more production "gee WSGI" capable results
+
+
+Test the application as per before, use `curl <host>8080` and `curl<host>8080:python_version
+
+TIP: The benefit here, is that there is no fussing about with Dockerfiles or any other configuration. Just the requirements.txt and the source tree.
+
+=== Extra Credit Opportunity - Build Your Own Builder Image 
+
+We really want 3.9, right? There is not a completed s2i image based upon RHEL, but one is available on Fedora.
+
+To build this, go into directory `s2i-python/3.9`.  Rename Dockerfile.fedora to Dockerfile.
+
+Then do a `sudo docker build Dockerfile.fedora -t python39`
+
+When you do your source to image build, specify this container image at localhost/python39
+
+If you DO NOT want the extra credit, build the app using my image at quay.io/jdbarlow/python39:latest
+
+=== Running the 3.9 Builder Image
+
+Once you build the image (or use mine), create your image with the s2i command as we did with the 3.8 build, your results will be glorious:
+
+
 ```
+[student@podman 3.9]$ curl localhost:8080/
+"Hello World from a generic Universal Base Image optimized for RHEL! try hitting this resource at /python_version"
+[student@podman 3.9]$ curl localhost:8080/python_version
+"3.9.0 (default, Oct  6 2020, 00:00:00) \n[GCC 10.2.1 20200826 (Red Hat 10.2.1-3)]"
+[student@podman 3.9]$ 
+```
+
+link:../containers.adoc[Return to workshop top page]
 

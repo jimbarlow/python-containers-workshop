@@ -48,13 +48,14 @@ endif::[]
   * link:{includedir}/docker_and_podman_commands.adoc[Getting Hands-On with Containers]
 
 [discrete]
-
-
 == Building Containers
 
   * link:{includedir}/building_python_containers.adoc[Building Python Containers]
 
 
+[discrete]
+== Persistent Storage and Files Access
+  * link:{includedir}/persistent_storage_on_a_server.adoc[Persistent Storage]
 
 
 
@@ -476,9 +477,7 @@ TIP: A lot of times we are working interactively to test images, and we don't wa
 ----
 podman run -d --rm --name myapache 7cb4d0eb07a5
 
-podman ps   #there it is
-
-podman stop myapache
+podman ps   #there it is/home/jbarlow/workspace/python/python-containers-workshop/Workshop/chapters/persistent_storage_on_a_server.adoc
 
 podman ps  # of course it is no longer running
 

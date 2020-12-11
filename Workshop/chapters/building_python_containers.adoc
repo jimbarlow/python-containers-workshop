@@ -215,8 +215,7 @@ Here is our requirements file:
 
 [source,python]
 --
-mkdir app
-cat > app/requirements.txt <<UNTILHERE
+cat > requirements.txt <<UNTILHERE
 flask==1.1.2
 flask_restful==0.3.8
 UNTILHERE

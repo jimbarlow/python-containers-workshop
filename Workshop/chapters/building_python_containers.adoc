@@ -201,7 +201,7 @@ mkdir -p src
 cat > Dockerfile.ubi <<UNTILHERE
 FROM registry.access.redhat.com/ubi8/ubi
 RUN yum install -y python3 && yum clean all
-COPY ./requirements.txt /app/requirements.txt
+COPY ./requirements.txt /application/requirements.txt
 WORKDIR /application
 RUN python3 -m pip install -r requirements.txt
 COPY ./src /application/src
@@ -251,22 +251,7 @@ if __name__ == '__main__':
 UNTILHERE
 --
 
-[source,bash]
---
-cat > Dockerfile.ubi <<UNTILHERE
-FROM registry.access.redhat.com/ubi8/ubi
-RUN yum install -y python3 && yum clean all
-COPY ./requirements.txt /app/requirements.txt
-WORKDIR /app
-RUN python3 -m pip install -r requirements.txt
-COPY ./src /application/src
-EXPOSE 8080
-ENTRYPOINT ["python3"]
-CMD ["src/main.py"]
-UNTILHERE
---
-
-Let's Build
+Let's Build:
 
 [source,bash]
 $ podman build -f Dockerfile.ubi -t hello-ubi-py
@@ -305,9 +290,7 @@ flask_restful==0.3.8
 Collecting aniso8601>=0.82 (from flask_restful==0.3.8->-r requirements.txt (line 2))
   Downloading https://files.pythonhosted.org/packages/93/4e/760c0aaf32034e2da98e1ac6d83b6ffc6d1301132af54c3950ee07785bfa/aniso8601-8.1.0-py2.py3-none-any.whl (44kB)
     100% |████████████████████████████████| 51kB 2.3MB/s 
-Collecting MarkupSafe>=0.23 (from Jinja2>=2.10.1->flask==1.1.2->-r requirements.txt (line 1))
-  Downloading https://files.pythonhosted.org/packages/b2/5f/23e0023be6bb885d00ffbefad2942bc51a620328ee910f64abe5a8d18dd1/MarkupSafe-1.1.1-cp36-cp36m-manylinux1_x86_64.whl
-Installing collected packages: MarkupSafe, Jinja2, click, itsdangerous, Werkzeug, flask, pytz, aniso8601, flask-restful
+Collecting MarkupSafe>=0.23 (from Jinja2>=2.10.1->flask==1.1.podman build -f Dockerfile.ubi -t hello-ubi-py
 Successfully installed Jinja2-2.11.2 MarkupSafe-1.1.1 Werkzeug-1.0.1 aniso8601-8.1.0 click-7.1.2 flask-1.1.2 flask-restful-0.3.8 itsdangerous-1.1.0 pytz-2020.4
 fb721dc362a5511a024e8a8fe4f98f6b1fd681dbbf6a1df98b2f57c58a47b846
 STEP 6: COPY ./src /application/src

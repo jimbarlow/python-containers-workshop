@@ -1,0 +1,22 @@
+:sectnums:
+:sectnumlevels: 3
+:imagesdir: ../images 
+
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+ifdef::env-github[]
+endif::[]
+
+= Persistent Storage on a Server
+
+link:../containers.adoc[Return to workshop top page]
+
+It is time to look at two approaches to getting files access for your containerized Python application.
+
+1) mounting external drives to the container at *run-time*
+
+2) Copying files into the container at *container build time* 
+

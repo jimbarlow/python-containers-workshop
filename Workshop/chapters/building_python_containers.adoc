@@ -418,7 +418,9 @@ We really want 3.9, right? There is not a completed s2i image based upon RHEL, b
 
 To build this, go into directory `s2i-python/3.9`.  Rename Dockerfile.fedora to Dockerfile.
 
-Then do a `sudo docker build Dockerfile.fedora -t python39`
+Then do a `sudo docker build . -t python39`. 
+
+TIP: The reason I suggest using the "." for current directory, is that the very old version of Docker running on RHEL does not allow you to use the -f <filename> to specify the "Dockerfile".
 
 When you do your source to image build, specify this container image at localhost/python39
 

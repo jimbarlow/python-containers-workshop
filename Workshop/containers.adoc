@@ -1,7 +1,7 @@
 //{set:imagesdir:images}
 :gitrepo: https://github.com/jimbarlow/python-containers-workshop
 :includedir: chapters
-:imagesdir: /images 
+:imagesdir: ./images 
 :pygments-style: emacs
 :source-highlighter: pygments
 :doctype: book

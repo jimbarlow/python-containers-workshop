@@ -228,6 +228,7 @@ Here is our slightly different application:
 --
 mkdir src
 cat > src/main.py <<UNTILHERE
+import sys
 from flask import Flask, request
 from flask_restful import Resource, Api
 
@@ -240,7 +241,7 @@ class Greeting (Resource):
 
 class PythonVersion (Resource):
     def get(self):
-        return (python --version)
+        return (sys.version)
 
 api.add_resource(Greeting, '/') # Route_1
 api.add_resource(PythonVersion, '/python_version') # Route_2

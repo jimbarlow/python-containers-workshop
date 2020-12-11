@@ -3,12 +3,14 @@
 ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
-:important-caption: :heavy_exclamation_mark:
+:important-caption: :heavy_exclamationpodman build -f Dockerfile.ubi -t hello-ubi-py_mark:
 :caution-caption: :fire:
 :warning-caption: :warning:
 endif::[]
 
 = TODO catch basin for the Workshop
+
+podman inspect a pos
 
 TIP: Should we want to temporarily disconnect from this running container, and come back, (regardless of the --rm flag), do this. From the container connection, issue a ctrl-p ctrl-q. To come back, issue the `docker attach <container-name>` command. Hit `<enter>` if you do not immediately see the connection.
 

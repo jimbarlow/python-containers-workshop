@@ -228,7 +228,7 @@ Here is our slightly different application:
 --
 mkdir src
 cat > src/main.py <<UNTILHERE
-import sys
+import sys, os
 from flask import Flask, request
 from flask_restful import Resource, Api
 
@@ -243,8 +243,13 @@ class PythonVersion (Resource):
     def get(self):
         return (sys.version)
 
-api.add_resource(Greeting, '/') # Route_1
-api.add_resource(PythonVersion, '/python_version') # Route_2
+class ListFiles (Resource):
+    def get(self):
+        return(os.listdir( ./datafiles ))
+
+api.add_resource(Greeting, '/')
+api.add_resource(PythonVersion, '/python_version')
+api.add_resource(ListFiles, '/data_files')
 
 if __name__ == '__main__':
     application.run('0.0.0.0','8080')
@@ -376,7 +381,7 @@ We now need to commit and push these changes to your repository.  Remember to ch
 $ git commit -am "replaced sample app"
 $ git push
 
-$ sudo s2i  build https://github.com/jimbarlow/s2i-python-container.git --context-dir=3.8/test/setup-test-app/ quay.io/jdbarlow/python-38-rhel7:1 python-sample-app
+$ sudo s2i build https://github.com/jimbarlow/s2i-python-container.git --context-dir=3.8/test/setup-test-app/ quay.io/jdbarlow/python-38-rhel7:1 python-sample-app
 --
 
 Replace jimbarlow in the command above, if you have done modifications.  If you don't want to be bothered, just run it as is from my git repo. I will not care.

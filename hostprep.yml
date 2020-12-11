@@ -17,6 +17,8 @@
           - git
           - vim
           - nano
+          - tmux
+          - emacs
       yum:
         name: "{{ packages_to_install }}"
         state: present
@@ -35,7 +37,7 @@
       lineinfile:
         path: /etc/subuid
           # line: "{{ jbarlow }}:100000:65536"
-        line: "jbarlow:100000:65536"
+        line: "ec2-user:100000:65536"
         create: yes
 
     - name: set subgid file properly
@@ -43,8 +45,18 @@
       lineinfile:
         path: /etc/subgid
           # line: "{{ jbarlow }}:100000:65536"
-        line: "jbarlow:100000:65536"
+        line: "ec2-user:100000:65536"
         create: yes
+    - name: Create the student user 
+    - name: Sudoers setup for wheel group
+    - name: Add the student user to wheel group
+    - name: install the OC command
+    - name: install docker
+    - name: install python3 and python3-pip
+    - name: enable docker
+    - name: start docker
+    
+
 
     - name: reboot the system
       become: True

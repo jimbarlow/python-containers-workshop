@@ -1,7 +1,7 @@
 //{set:imagesdir:images}
 :gitrepo: https://github.com/jimbarlow/python-containers-workshop
 :includedir: chapters
-:imagesdir: ../images 
+:imagesdir: /images 
 :pygments-style: emacs
 :source-highlighter: pygments
 :doctype: book
@@ -19,11 +19,6 @@ endif::[]
 
 
 = Python Containers for Servers and Kubernetes (OpenShift)
-
-[discrete]
-== TODO
-
-  * link:{includedir}/TODO.adoc[Work Still in Progress]
 
 [discrete]
 == What Are Containers?
@@ -98,56 +93,6 @@ Quay is a public registry, owned and hosted by Red Hat. Quay does have "free" se
 The Red Hat official images (except the "ubi") require a subscription to the Red Hat Support Network to obtain these images. We have installed a token so that you do not have to log in with podman or docker to try these.
 
 Official "paid for" container images are hosted at registry.redhat.io, and the "free" images are hosted at registry.access.redhat.com
-
-
-
-
-==== The S2I "Source to Image" Build - S2I-Python
-
-Source to Image is a technology that Red Hat developed for Kubernetes. It is part of OpenShift, but we will use it standalone.
-
-To get it, wget it from github:
-
-
-
-The source to image program will take as inputs 
-
-==== Pros / Cons of the Above Approaches
-
-=== Accessing Server Based Files
-
-==== The Copy in Build Approach
-
-==== The Mounting Approach
-
-==== Use of a "Data Container"
-
-==== All about "Persistent Volumes"
-
-=== Accessing Database a Step to "Micro-Services"
-
-==== Build the App and Database Containers
-
-==== Wiring The Containers Together.
-
-== OpenShift and Python Containers
-
-=== Creating the Namespace (Project)
-
-=== Using the Git Repository for Source to Image
-
-=== Create the App - Pre-built Container
-
-=== Create the App - Source to Image
-
-=== Health Checks in Kubernetes (OpenShift)
-
-== Serverless 
-
-=== Bring Up / Scale Down Containers
-
-==== HTTP Request Traffic
-
 
 
 

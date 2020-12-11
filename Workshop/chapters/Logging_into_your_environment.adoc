@@ -22,7 +22,7 @@ TIP: You can log in from the command line of Linux, Windows, or Macintosh. Some 
 Your username will be student. So log in as student:
 
 [source,bash]
-$ ssh student@xx.xx.xx.xx 
+$ ssh student@x.ocp-hackathon.com 
 
 
 

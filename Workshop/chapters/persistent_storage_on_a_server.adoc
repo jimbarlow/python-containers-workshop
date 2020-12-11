@@ -20,3 +20,160 @@ It is time to look at two approaches to getting files access for your containeri
 
 2) Copying files into the container at *container build time* 
 
+== Mounting Volumes and Security
+
+Mounting data file directories for access by a containerized application is pretty easy. Making sure the security works for the platform is essential.
+
+SELinux extensions for Linux servers have been around for almost 20 years now. Not using them is no longer a viable option in most companies.
+
+It is common to make mount points in the /mnt directory. I'm going to do this in my home directory, however.
+
+This directory will hold data files in the server filesystem, and make no attempt to copy them "into the container"
+
+[source,bash]
+$ mkdir datafiles
+$ touch data{1..20}.txt
+$ touch values{1..30}.csv
+
+This will provide some files to observe within our "app"
+
+Let’s get the SELinux security context correct:
+
+[source,bash]
+$ sudo chcon -Rt container_file_t datafiles
+$ sudo restorecon ./datafiles
+
+We have modified our application slightly in order to return a list of files as astring that the container may access
+
+[source,bash]
+--
+cat > testapp.py <<UNTILHERE
+import sys
+import os
+from flask import Flask, request
+from flask_restful import Resource, Api
+
+application = Flask(__name__)
+api = Api(application)
+
+class Greeting (Resource):
+    def get(self):
+        return 'Hello Another World from a generic Universal Base Image optimized for RHEL! try hitting this resource at /python_version'
+
+class PythonVersion (Resource):
+    def get(self):
+        return (sys.version)
+
+class ListFiles (Resource):
+    def get(self):
+        file_list = os.listdir( '/datafiles' )
+        listToStr = ' '.join(map(str, file_list))
+        return listToStr
+
+api.add_resource(Greeting, '/')
+api.add_resource(PythonVersion, '/python_version')
+api.add_resource(ListFiles, '/data_files')
+
+if __name__ == '__main__':
+    application.run('0.0.0.0','8080')
+UNTILHERE
+--
+
+This file should be placed into the following directory:
+
+[source,bash]
+$ cp testapp.py s2i-python-container/examples/setup-test-app/testapp.py
+$ cd s2i-python-container
+$ git commit -am "added file listing in the data volume"
+$ git push
+
+Now the container can be re-built 
+
+[source,bash]
+$ sudo s2i build https://github.com/jimbarlow/s2i-python-container.git --context-dir=3.9/test/setup-test-app/ quay.io/jdbarlow/python39:latest python-data-list
+
+Now to run this, we will add a new parameter to the docker command line, the -v for volume mounting. This is a colon separated value pair, just as with the ports. This requires a full path of the server directory first, followed by the ":" and the internal directory to mount in the pod.  I added the -d to detach the container from the terminal console.
+
+[source,bash]
+$ sudo docker run -d -p 8080:8080 -v /home/student/datafiles:/datafiles python-data-list
+
+Now you can curl the `localhost:8080/data_files` URL to see if you can see the mounted data. These mounts can are read/write by default.
+
+== Copying Data Into the Container Filesystem
+
+Here is our second option. At the time we build the container, we can use the COPY command from the "Dockerfile" to copy the files into the overlay file system that the container uses directly.
+
+Let's go back to our first container image for this one for the sake of simplicity
+
+[source,bash]
+mkdir -p src
+cat > Dockerfile.copyfiles <<UNTILHERE
+FROM python:3.9-buster
+COPY ./requirements.txt /application/requirements.txt
+# Here we will copy in our data directory
+COPY ./datafiles /datafiles
+# We'll eventualy have to figure out how to get results out
+WORKDIR /application
+RUN python3 -m pip install -r requirements.txt
+COPY ./src /application/src
+EXPOSE 8080
+ENTRYPOINT ["python3"]
+CMD ["src/main.py"]
+UNTILHERE
+
+Our application will have to deliver the results outside of the filesystem. Perhaps as a POST someplace?
+
+[source,python]
+--
+cat > src/main.py <<UNTILHERE
+import sys, os
+from flask import Flask, request
+from flask_restful import Resource, Api
+
+application = Flask(__name__)
+api = Api(application)
+
+class Greeting (Resource):
+    def get(self):
+        return 'Hello World from a generic Universal Base Image optimized for RHEL! try hitting this resource at /python_version'
+
+class PythonVersion (Resource):
+    def get(self):
+        return (sys.version)
+
+class ListFiles (Resource):
+    def get(self):
+        return(os.listdir( '/datafiles' ))
+
+api.add_resource(Greeting, '/')
+api.add_resource(PythonVersion, '/python_version')
+api.add_resource(ListFiles, '/data_files')
+
+if __name__ == '__main__':
+    application.run('0.0.0.0','8080')
+
+UNTILHERE
+--
+
+Just for grins, I thought we would return the list rather than the string in this chapter.
+
+Our requirements.txt stay the same, though we will not use gunicorn here.
+
+Let's build:
+
+[source,bash]
+$ podman build -f Dockerfile.copyfiles -t copy-files-into
+
+Let's run:
+
+[source,bash]
+$ podman run --rm -p 8080:8080 copy-files-into
+
+Please curl:
+
+[source,bash]
+$ curl localhost:8080/data_files
+
+Do you see the files returned as a list object?
+
+link:../containers.adoc[Return to workshop top page]

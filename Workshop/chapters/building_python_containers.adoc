@@ -51,9 +51,7 @@ So what is happening in the Dockerfile?
 
 FROM represents our source image. We have the repo: ```python```, and the tag ```3.9-buster```
 
-This repo and tag refer to the "Official Community Maintained Container for Python". Will you use that container as a base? Great question. Later we will show a more secure base image.
-
-The lines below populate the requirements.txt so that pip can do it's job. IRL (In Real Life) you would probably want to use an on-site or curated pip repository. Of course, you would also care about specifying versions of the installed modules. Today, flask is at 1.1.2.
+This repo and tag refer to the "Official Community Maintained Container for Python". Will you use that container as a base? Great question. Later podman build -f Dockerfile.copyfiles -t copy-files-into
 
 [source,bash]
 cat > requirements.txt <<UNTILHERE
@@ -197,6 +195,7 @@ NOTE: my application landed in root, this could be changed by putting it into a 
 ==== UBI: Build from a generic image
 
 [source,bash]
+--
 mkdir -p src
 cat > Dockerfile.ubi <<UNTILHERE
 FROM registry.access.redhat.com/ubi8/ubi

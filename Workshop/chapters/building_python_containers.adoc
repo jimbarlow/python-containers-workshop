@@ -305,4 +305,107 @@ c9dbc735cff0bd4a36ff8f324884ae14184dd8a106a7601b8ca8f2b4c831e682
 c9dbc735cff0bd4a36ff8f324884ae14184dd8a106a7601b8ca8f2b4c831e682
 ```
 
+Looks good enough to run!
+
+[source,bash]
+$ podman run -p 8080:808080 hello-ubi-py
+
+curl or browse to the following endpoints:
+
+[source,bash]
+--
+$ curl <host>:8080/
+
+$ curl <host>:8080/python_version
+--
+
+Ouch, you may have noticed that we got the "RHEL" version of Python, which is a little long in the tooth
+
+We can fix that by using a ubi image made for Python.
+
+=== Red Hat s2i Builder Image
+
+Here is our chance to work with the concept of s2i or sti "source to image"
+
+This installs the s2i executable. Just do the following:
+
+[source,bash]
+--
+$ sudo subscription-manager repos --enable=rhel-server-rhscl-7-rpms
+
+$ sudo yum install source-to-image -y
+--
+
+The concept of the source to image is to have a build without a build process. This is an especially powerful concept for those who don't want to build images on their own, and works very well within a kubernetes platform. This is especially favored within OpenShift.
+
+Log into your "git compatible" repository for this next step.  Please fork the repo `sclorg/s2i-python-container`
+
+Clone your fork to your instance, so that we can modify it. 
+
+We will take the last instance of our source code, and requirements.txt and place them into the tree.
+
+```
+[student@podman ~]$ git clone https://github.com:jimbarlow/s2i-python-container.git 
+Cloning into 's2i-python-container'...
+fatal: repository 'https://github.com:jimbarlow/s2i-python-container.git/' not found
+[student@podman ~]$ git clone https://github.com:jimbarlow/sclorg/s2i-python-container.git 
+Cloning into 's2i-python-container'...
+remote: Enumerating objects: 250, done.
+remote: Counting objects: 100% (250/250), done.
+remote: Compressing objects: 100% (148/148), done.
+remote: Total 4126 (delta 139), reused 154 (delta 74), pack-reused 3876
+Receiving objects: 100% (4126/4126), 1.88 MiB | 1.75 MiB/s, done.
+Resolving deltas: 100% (2327/2327), done.
+[student@podman ~]$ pwd
+/home/student
+[student@podman ~]$ ls
+Dockerfile.hello-world  Dockerfile.python38  Dockerfile.ubi  helloworld.py  requirements.txt  s2i-python-container  src
+[student@podman ~]$ 
+
+```
+
+[source,bash]
+$ cp requirements.txt s2i-python-container/examples/setup-test-app/
+$ cp src/main.py s2i-python-container/examples/setup-test-app/testapp.py
+
+
+We now need to commit and push these changes to your repository.  Remember to change 'jimbarlow' into your own account name.
+
+[source,bash]
+--
+$ git commit -am "replaced sample app"
+$ git push
+
+$ sudo s2i  build https://github.com/jimbarlow/s2i-python-container.git --context-dir=3.8/test/setup-test-app/ quay.io/jdbarlow/python-38-rhel7:1 python-sample-app
+--
+
+Replace jimbarlow in the command above, if you have done modifications.  If you don't want to be bothered, just run it as is from my git repo. I will not care.
+
+[source,bash]
+$ sudo docker run -p 8080:8080 python-sample-app
+
+This outputs:
+
+```
+[student@podman ~]$ sudo docker run -p 8080:8080 python-sample-app 
+---> Serving application with gunicorn (testapp) ...
+[2020-12-11 03:03:54 +0000] [1] [INFO] Starting gunicorn 20.0.4
+[2020-12-11 03:03:54 +0000] [1] [INFO] Listening at: http://0.0.0.0:8080 (1)
+[2020-12-11 03:03:54 +0000] [1] [INFO] Using worker: sync
+[2020-12-11 03:03:54 +0000] [33] [INFO] Booting worker with pid: 33
+[2020-12-11 03:03:54 +0000] [34] [INFO] Booting worker with pid: 34
+[2020-12-11 03:03:54 +0000] [35] [INFO] Booting worker with pid: 35
+[2020-12-11 03:03:54 +0000] [36] [INFO] Booting worker with pid: 36
+172.17.0.1 - - [11/Dec/2020:03:04:10 +0000] "GET / HTTP/1.1" 200 115 "-" "curl/7.29.0"
+172.17.0.1 - - [11/Dec/2020:03:04:22 +0000] "GET /python_version HTTP/1.1" 200 82 "-" "curl/7.29.0"
+^C[2020-12-11 03:05:05 +0000] [1] [INFO] Handling signal: int
+[2020-12-11 03:05:05 +0000] [33] [INFO] Worker exiting (pid: 33)
+[2020-12-11 03:05:05 +0000] [34] [INFO] Worker exiting (pid: 34)
+[2020-12-11 03:05:05 +0000] [36] [INFO] Worker exiting (pid: 36)
+[2020-12-11 03:05:05 +0000] [35] [INFO] Worker exiting (pid: 35)
+[2020-12-11 03:05:06 +0000] [1] [INFO] Shutting down: Master
+
+```
+NOTE: This builder image properly implements the code using gunicorn for more production "gee WSGI" capable results
+```
 

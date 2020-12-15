@@ -56,5 +56,5 @@ link:https://www.docker.com/blog/containerized-python-development-part-3/[Part 3
 
 === Red Hat Videos
 
-Red Hat has been running a series of informal "live coding" events on the topic of containers on openshift.tv (Twitch and Youtube). This is called TLH (The Level-up Hour). Here is that channel:
+Red Hat has been running a series of informal "live coding" events on the topic of containers on openshift.tv (Twitch and Youtube). This is called TLH (The Level-up Hour) by Langdon White. 
 

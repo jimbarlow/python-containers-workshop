@@ -42,6 +42,8 @@ Introduction by Red Hat's Scott McCarty of the Universal Base Image concept (UBI
 
 link:https://www.redhat.com/en/blog/introducing-red-hat-universal-base-image[Introducing the Red Hat Universal Base Image]
 
+link:https://github.com/openshift-katacoda/blog-django-py/[ Graham Dumpleton's Django S2I Build for OpenShift]
+
 
 === Docker.com Articles
 

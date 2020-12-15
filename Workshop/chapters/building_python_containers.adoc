@@ -227,13 +227,10 @@ class PythonVersion (Resource):
     def get(self):
         return (sys.version)
 
-class ListFiles (Resource):
-    def get(self):
-        return(os.listdir( ./datafiles ))
 
 api.add_resource(Greeting, '/')
 api.add_resource(PythonVersion, '/python_version')
-api.add_resource(ListFiles, '/data_files')
+
 
 if __name__ == '__main__':
     application.run('0.0.0.0','8080')
@@ -297,7 +294,7 @@ c9dbc735cff0bd4a36ff8f324884ae14184dd8a106a7601b8ca8f2b4c831e682
 Looks good enough to run!
 
 [source,bash]
-$ podman run -p 8080:808080 hello-ubi-py
+$ podman run -p 8080:8080 hello-ubi-py
 
 curl or browse to the following endpoints:
 
@@ -320,10 +317,7 @@ This installs the s2i executable. Just do the following:
 
 [source,bash]
 --
-$ sudo subscription-manager repos --enable=rhel-server-rhscl-7-rpms
-
-$ sudo yum install source-to-image -y
---
+$ sudo subscription-manager repos -Anca Jordache
 
 The concept of the source to image is to have a build without a build process. This is an especially powerful concept for those who don't want to build images on their own, and works very well within a kubernetes platform. This is especially favored within OpenShift.
 
@@ -334,10 +328,7 @@ Clone your fork to your instance, so that we can modify it.
 We will take the last instance of our source code, and requirements.txt and place them into the tree.
 
 ```
-[student@podman ~]$ git clone https://github.com:jimbarlow/s2i-python-container.git 
-Cloning into 's2i-python-container'...
-fatal: repository 'https://github.com:jimbarlow/s2i-python-container.git/' not found
-[student@podman ~]$ git clone https://github.com:jimbarlow/sclorg/s2i-python-container.git 
+[student@podman ~]$ git clone https://github.com/jimbarlow/s2i-python-container.git 
 Cloning into 's2i-python-container'...
 remote: Enumerating objects: 250, done.
 remote: Counting objects: 100% (250/250), done.

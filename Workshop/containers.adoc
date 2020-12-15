@@ -52,6 +52,14 @@ endif::[]
 == Persistent Storage and Files Access
   * link:{includedir}/persistent_storage_on_a_server.adoc[Persistent Storage]
 
+[discrete]
+== Further Reading and Sources Used in this Workshop
+
+  * link:{includedir}/python_containers_sources.adoc[Python Containers Information Sources]
+
+
+
+
 
 
 podman run -it --rm ubi8/python-38 /opt/app-root/bin/python

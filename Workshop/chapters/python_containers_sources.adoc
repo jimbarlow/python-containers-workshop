@@ -1,0 +1,38 @@
+:sectnums:
+:sectnumlevels: 3
+:imagesdir: ../images 
+
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+ifdef::env-github[]
+endif::[]
+
+= References Used in this Workshop
+
+=== Red Hat Sources
+
+This URL references C#, but Don's articles explain basic containers suitable for servers and OpenShift on many languages:
+
+link:https://developers.redhat.com/articles/csharp-container#[Don Schenk's Hello World Flask Container from devlopers.redhat.com]
+
+The following is Graham Dumpleton's blog article on "Hello World" on Python on OpenShift
+
+link:https://www.openshift.com/blog/getting-started-python[Red Hat Blog on Getting Started With Python for OpenShift]
+
+Project Thoth at Thoth-Station is a Red Hat project for "Source to Image" builds with an AI recommendation engine on the most likely best elements.
+
+link:https://thoth-station.ninja/[Project Thoth]
+
+The following are free live tutorials hosted on Katacoda and sponsored by Red Hat. They live background hosts and clusters, and not simulations.
+
+link:https://www.katacoda.com/courses/openshift/ai-machine-learning/thoth-s2i-advise[Building s2i with Thoth Advice]
+
+link:https://www.katacoda.com/courses/openshift/ai-machine-learning/thoth-s2i-provenance[Building s2i with Thoth Provenance]
+
+=== Docker.com Articles
+
+
+

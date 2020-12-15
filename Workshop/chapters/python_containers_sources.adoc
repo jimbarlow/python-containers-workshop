@@ -14,6 +14,10 @@ endif::[]
 
 === Red Hat Sources
 
+The following is an extensive tutorial that I recently found. It includes examples with databases:
+
+link:https://developers.redhat.com/blog/2019/09/12/develop-with-flask-and-python-3-in-a-container-on-red-hat-enterprise-linux/[Develop with Flask and Python3 in a container on Red Hat Enterprise Linux]
+
 This URL references C#, but Don's articles explain basic containers suitable for servers and OpenShift on many languages:
 
 link:https://developers.redhat.com/articles/csharp-container#[Don Schenk's Hello World Flask Container from devlopers.redhat.com]
@@ -28,11 +32,21 @@ link:https://thoth-station.ninja/[Project Thoth]
 
 The following are free live tutorials hosted on Katacoda and sponsored by Red Hat. They live background hosts and clusters, and not simulations.
 
+link:https://github.com/sclorg/s2i-python-container[The GitHub Repository for the Source to Image Containers]
+
 link:https://www.katacoda.com/courses/openshift/ai-machine-learning/thoth-s2i-advise[Building s2i with Thoth Advice]
 
 link:https://www.katacoda.com/courses/openshift/ai-machine-learning/thoth-s2i-provenance[Building s2i with Thoth Provenance]
 
+Introduction by Red Hat's Scott McCarty of the Universal Base Image concept (UBI)
+
+link:https://www.redhat.com/en/blog/introducing-red-hat-universal-base-image[Introducing the Red Hat Universal Base Image]
+
+
 === Docker.com Articles
 
 
+=== Red Hat Videos
+
+Red Hat has been running a series of informal "live coding" events on the topic of containers on openshift.tv (Twitch and Youtube). This is called TLH (The Level-up Hour). Here is that channel:
 

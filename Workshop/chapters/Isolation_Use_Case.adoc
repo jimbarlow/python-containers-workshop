@@ -8,14 +8,15 @@ ifdef::env-github[]
 :warning-caption: :warning:
 endif::[]
 
-= TODO for the Workshop
 
 = The Python Isolation Use Case
 
 == System vs. Application Python Instances
-We all know that it is not good to use the "system python." In some cases it is tied to the install and maintenance utilities. If you link /usr/bin/python -> /usr/bin/python37 in Red Hat Linux, yum (installation, updates) utilities break. 
+We all know that it is not good to use the "system python." In some cases it is tied to the install and maintenance utilities. If you link /usr/bin/python -> /usr/bin/python37 in Red Hat Enterprise Linux (RHEL), yum (installation, updates) utilities break. 
 
-Let's use Containers to provide this separation
+RHEL 7 is installed with 2.7.5 with patches applied for bugs and security. RHEL can have installed Python3, which in version 7 translates to Python 3.6.3. Red Hat Software Collections repositories include up to Python 3.8 
+
+A container can easily built through to hold up to 3.9.0 on a Fedora "builder image", or on 3.9.1 as of today, from the Python Developers.
 
 
 

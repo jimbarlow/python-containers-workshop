@@ -45,6 +45,14 @@ link:https://www.redhat.com/en/blog/introducing-red-hat-universal-base-image[Int
 
 === Docker.com Articles
 
+The following is a series of three articles by Anca Jordache on developing on Python (Flask) with the debugger on to provide a live coding experience
+
+link:https://www.docker.com/blog/containerized-python-development-part-1/[Part 1]
+
+link:https://www.docker.com/blog/containerized-python-development-part-2/[Part 2]
+
+link:https://www.docker.com/blog/containerized-python-development-part-3/[Part 3Z]
+
 
 === Red Hat Videos
 

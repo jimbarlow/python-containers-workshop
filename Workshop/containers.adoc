@@ -58,12 +58,9 @@ endif::[]
 
 
 [discrete]
-== Further Reading and Sources Used in this Workshop
+== Additional Materials from a Previous Version
 
   * link:{includedir}/appendix_additional_materials.adoc[Appendix - Additional Materials]
-
-
-
 
 
 

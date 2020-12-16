@@ -46,7 +46,7 @@ $ sudo restorecon ./datafiles
 We have modified our application slightly in order to return a list of files as astring that the container may access
 
 [source,bash]
---
+----
 cat > testapp.py <<UNTILHERE
 import sys
 import os
@@ -77,7 +77,7 @@ api.add_resource(ListFiles, '/data_files')
 if __name__ == '__main__':
     application.run('0.0.0.0','8080')
 UNTILHERE
---
+----
 
 This file should be placed into the following directory:
 

@@ -43,7 +43,7 @@ Let’s get the SELinux security context correct:
 $ sudo chcon -Rt container_file_t datafiles
 $ sudo restorecon ./datafiles
 
-We have modified our application slightly in order to return a list of files as astring that the container may access
+We have modified our application slightly in order to return a list of files as as a string.
 
 [source,bash]
 ----
@@ -76,6 +76,7 @@ api.add_resource(ListFiles, '/data_files')
 
 if __name__ == '__main__':
     application.run('0.0.0.0','8080')
+
 UNTILHERE
 ----
 
@@ -124,7 +125,7 @@ UNTILHERE
 Our application will have to deliver the results outside of the filesystem. Perhaps as a POST someplace?
 
 [source,python]
---
+----
 cat > src/main.py <<UNTILHERE
 import sys, os
 from flask import Flask, request
@@ -149,11 +150,16 @@ api.add_resource(Greeting, '/')
 api.add_resource(PythonVersion, '/python_version')
 api.add_resource(ListFiles, '/data_files')
 
-if __name.
-Total 6 (delta 4), reused 0 (delta 0), pack-reused 0
+
+if __name__ == '__main__':
+    application.run('0.0.0.0','8080')
+----
+
+
 Just for grins, I thought we would return the list rather than the string in this chapter.
 
-Our requirements.txt stay the same, though we will not use gunicorn here.
+Our requirements.txt stay the same, though we will not use gunicorn here, because we are not using source to image.
+If we were using source to image, we could use the assemble script to copy the files.
 
 Let's build:
 
@@ -228,9 +234,3 @@ NOTE: While we cannot use wildcard file globbing for copying, we can copy direct
 
 link:../containers.adoc[Return to workshop top page]
 
-
-
-
-
-
-link:../containers.adoc[Return to workshop top page]

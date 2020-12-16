@@ -49,14 +49,16 @@ link:https://github.com/openshift-katacoda/blog-django-py/[ Graham Dumpleton's D
 
 The following is a series of three articles by Anca Jordache on developing on Python (Flask) with the debugger on to provide a live coding experience
 
-link:https://www.docker.com/blog/containerized-python-development-part-1/[Part 1]
+link:https://www.docker.com/blog/containerized-python-development-part-1/[Flask Development on Docker Part 1]
 
-link:https://www.docker.com/blog/containerized-python-development-part-2/[Part 2]
+link:https://www.docker.com/blog/containerized-python-development-part-2/[Flask Development on Docker Part 2]
 
-link:https://www.docker.com/blog/containerized-python-development-part-3/[Part 3Z]
+link:https://www.docker.com/blog/containerized-python-development-part-3/[Flask Development on Docker Part 3]
 
 
 === Red Hat Videos
 
 Red Hat has been running a series of informal "live coding" events on the topic of containers on openshift.tv (Twitch and Youtube). This is called TLH (The Level-up Hour) by Langdon White. 
+
+link:../containers.adoc[Return to workshop top page]
 

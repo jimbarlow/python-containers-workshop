@@ -212,12 +212,7 @@ Here is our slightly different application:
 --
 mkdir src
 cat > src/main.py <<UNTILHERE
-import sys, os
-from flask import Flask, request
-from flask_restful import Resource, Api
-
-application = Flask(__name__)
-api = Api(application)
+import sys, oshttps://www.youtube.com/watch?v=eKnqc1L_DFoion)
 
 class Greeting (Resource):
     def get(self):
@@ -314,9 +309,7 @@ We can fix that by using a ubi image made for Python.
 Here is our chance to work with the concept of s2i or sti "source to image"
 
 This installs the s2i executable. Just do the following:
-
-[source,bash]
---
+https://www.youtube.com/watch?v=eKnqc1L_DFo
 $ sudo subscription-manager repos -Anca Jordache
 
 The concept of the source to image is to have a build without a build process. This is an especially powerful concept for those who don't want to build images on their own, and works very well within a kubernetes platform. This is especially favored within OpenShift.
@@ -353,6 +346,7 @@ We now need to commit and push these changes to your repository.  Remember to ch
 
 [source,bash]
 --
+$ cd s2i-python-container
 $ git commit -am "replaced sample app"
 $ git push
 

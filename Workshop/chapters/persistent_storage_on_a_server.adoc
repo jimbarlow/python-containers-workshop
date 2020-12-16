@@ -99,7 +99,7 @@ $ sudo docker run -d -p 8080:8080 -v /home/student/datafiles:/datafiles python-d
 
 Now you can curl the `localhost:8080/data_files` URL to see if you can see the mounted data. These mounts can are read/write by default.
 
-== Copying Data Into the Container Filesystem
+== Copying Data Into the Container Filesystem at Build Time
 
 Here is our second option. At the time we build the container, we can use the COPY command from the "Dockerfile" to copy the files into the overlay file system that the container uses directly.
 
@@ -149,12 +149,8 @@ api.add_resource(Greeting, '/')
 api.add_resource(PythonVersion, '/python_version')
 api.add_resource(ListFiles, '/data_files')
 
-if __name__ == '__main__':
-    application.run('0.0.0.0','8080')
-
-UNTILHERE
---
-
+if __name.
+Total 6 (delta 4), reused 0 (delta 0), pack-reused 0
 Just for grins, I thought we would return the list rather than the string in this chapter.
 
 Our requirements.txt stay the same, though we will not use gunicorn here.
@@ -165,15 +161,76 @@ Let's build:
 $ podman build -f Dockerfile.copyfiles -t copy-files-into
 
 Let's run:
-
-[source,bash]
-$ podman run --rm -p 8080:8080 copy-files-into
-
-Please curl:
-
+e.
+Total 6 (delta 4), reused 0 (delta 0), pack-reused 0
 [source,bash]
 $ curl localhost:8080/data_files
 
 Do you see the files returned as a list object?
+
+== Copying Data Into Running Container Filesystems
+
+The trick to this is to use the `sudo docker cp <files> CONTAINER_ID:/<destination_dir>
+
+To extract files from a container, such as after a batch run:`sudo docker cp CONTAINER_ID:/<source_dir> /<local_dir>`
+
+Let's try this with our running container from above.
+
+Let's run the container again as it was built:
+
+[source,bash]
+$ sudo docker run -d --name python-container -p 8080:8080  docker-list-files
+
+NOTE: The --name parameter has to be passed right after the -d parameter
+
+For the first time today, we are naming the running container. Without the `--name` parameter, you may have noticed that two-word random names have been generated. Let's step back from the hexadecimal and random, and call this instance "python-container"
+
+[source,bash]
+---
+$ touch exoskeleton{1,2,3,4}.txt
+$ for i in {1..4} ; do sudo docker cp ./exoskeleton$i.txt python-container:/datafiles ; done
+$ curl localhost:8080/data_files
+
+tip: The docker cp command does not like wildcard globbing, so use a for loop to copy in the data.
+
+results in:
+
+```
+[student@podman ~]$ curl localhost:8080/data_files
+["data1.csv", "data1.txt", "data10.csv", "data10.txt", "data11.csv", "data11.txt", "data12.csv", "data12.txt", "data13.csv", "data13.txt", "data14.csv", "data14.txt", "data15.csv", "data15.txt", "data16.csv", "data16.txt", "data17.csv", "data17.txt", "data18.csv", "data18.txt", "data19.csv", "data19.txt", "data2.csv", "data2.txt", "data20.csv", "data20.txt", "data21.csv", "data22.csv", "data23.csv", "data24.csv", "data25.csv", "data26.csv", "data27.csv", "data28.csv", "data29.csv", "data3.csv", "data3.txt", "data30.csv", "data4.csv", "data4.txt", "data5.csv", "data5.txt", "data6.csv", "data6.txt", "data7.csv", "data7.txt", "data8.csv", "data8.txt", "data9.csv", "data9.txt", "exoskeleton[1,2,3,4}.txt", "exoskeleton1.txt", "exoskeleton2.txt", "exoskeleton3.txt", "exoskeleton4.txt"]
+```
+We can see we were able to move the data files to the container.
+
+Let's see if we can get all of the datfiles out
+
+[source,bash]
+$ mkdir output
+$ sudo docker cp python-container:/datafiles ./output/
+$ ls -R ./output
+
+yields:
+```
+./output:
+datafiles
+
+./output/datafiles:
+data10.csv  data13.txt  data17.csv  data1.txt   data25.csv  data30.csv  data6.csv  data9.txt
+data10.txt  data14.csv  data17.txt  data20.csv  data26.csv  data3.csv   data6.txt  exoskeleton[1,2,3,4}.txt
+data11.csv  data14.txt  data18.csv  data20.txt  data27.csv  data3.txt   data7.csv  exoskeleton1.txt
+data11.txt  data15.csv  data18.txt  data21.csv  data28.csv  data4.csv   data7.txt  exoskeleton2.txt
+data12.csv  data15.txt  data19.csv  data22.csv  data29.csv  data4.txt   data8.csv  exoskeleton3.txt
+data12.txt  data16.csv  data19.txt  data23.csv  data2.csv   data5.csv   data8.txt  exoskeleton4.txt
+data13.csv  data16.txt  data1.csv   data24.csv  data2.txt   data5.txt   data9.csv
+[student@podman ~]$ 
+```
+NOTE: While we cannot use wildcard file globbing for copying, we can copy directories.
+
+
+link:../containers.adoc[Return to workshop top page]
+
+
+
+
+
 
 link:../containers.adoc[Return to workshop top page]

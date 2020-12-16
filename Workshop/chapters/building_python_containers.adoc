@@ -309,8 +309,10 @@ We can fix that by using a ubi image made for Python.
 Here is our chance to work with the concept of s2i or sti "source to image"
 
 This installs the s2i executable. Just do the following:
-https://www.youtube.com/watch?v=eKnqc1L_DFo
-$ sudo subscription-manager repos -Anca Jordache
+
+$ sudo subscription-manager repos --enable=rhel-server-rhscl-7-rpms	
+
+$ sudo yum install source-to-image -y
 
 The concept of the source to image is to have a build without a build process. This is an especially powerful concept for those who don't want to build images on their own, and works very well within a kubernetes platform. This is especially favored within OpenShift.
 
@@ -351,9 +353,7 @@ $ git commit -am "replaced sample app"
 $ git push
 
 $ sudo s2i build https://github.com/jimbarlow/s2i-python-container.git --context-dir=3.8/test/setup-test-app/ quay.io/jdbarlow/python-38-rhel7:1 python-sample-app
---
-
-Replace jimbarlow in the command above, if you have done modifications.  If you don't want to be bothered, just run it as is from my git repo. I will not care.
+--https://docs.google.com/document/d/1dV4GiazRLXJ7_QOp0yMJjL_yaXsAjeIqzyR1qCdsCQA/editare.
 
 [source,bash]
 $ sudo docker run -p 8080:8080 python-sample-app

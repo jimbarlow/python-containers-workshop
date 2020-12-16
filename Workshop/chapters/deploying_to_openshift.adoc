@@ -1,0 +1,11 @@
+
+
+
+Log in with a token by using your webgui login. This provides a string that can be used to login without passwords.
+
+[source,bash]
+-- 
+$ oc login --token=zQc4VpcIQLGCyEcHjWr-fBLwgPP_R8E8oR2Cdb0T5EE --server=https://api.cluster-c4fe.c4fe.sandbox1777.opentlc.com:6443
+$ oc new-project python-containers
+$ oc new-app
+

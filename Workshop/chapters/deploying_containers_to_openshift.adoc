@@ -1,0 +1,151 @@
+
+:sectnums:
+:sectnumlevels: 3
+:imagesdir: ../images 
+
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+ifdef::env-github[]
+endif::[]
+
+= Deploying Python Containers with Gunicorn to OpenShift
+
+== Using the OpenShift Registry as Your Enterprise Registry (PoC style)
+
+If you want to use the OpenShift registry as the main registry (no enteprise, docker, or quay registry) Here is how to configure that. See the actual documentation link at the bottom of this page.
+
+First you must `oc login` as a cluster-admin, in order to create the path to the registry. The registry is not accessible outside of the cluster by default. It is really intended to be a downstream caching registry
+
+oc login -u user30 <api.clustername.something.com>
+
+Here is an example: 
+
+[source,bash]
+$ oc login -u opentlc-mgr -p 'r3dh4t1!' https://api.cluster-c4fe.c4fe.sandbox1777.opentlc.com:6443
+
+You will be asked to accept and insecure connection because of the default self-signed certificates in the deployment of a PoC OpenShift. Please answer (y)
+
+Next we need to see if there is an external route to the registry.
+
+=== Exposing the registry
+
+The documentation on how to expose the registry is here for version 4.6. 
+
+```oc get routes -n openshift-image-registry```
+
+If no routes are listed, proceed.
+
+Here is the command to patch the registry operator to generate a default (not very pretty) functional route:
+
+[source,bash]
+----
+$ oc patch configs.imageregistry.operator.openshift.io/cluster --patch '{"spec":{"defaultRoute":true}}' --type=merge```
+
+$ oc get routes -n openshift-image-registry
+----
+yielded as the route:
+
+```default-route   default-route-openshift-image-registry.apps.cluster-c4fe.c4fe.sandbox1777.opentlc.com```
+
+=== Grant the users permissions to the registry
+
+We will be granting rights to user30 in this example. registry-editor allows for pushing to the registry, and registry-viewer allows use of the registry.
+
+$ oc whoami
+opentlc-mgr 
+$ oc policy add-role-to-user registry-editor user30
+$ oc policy add-role-to-user registry-viewer user30
+===
+
+== Using the Registry for Direct Pushes
+
+Pushes to the registry must occur within a "project" or "namespace"
+
+oc new-project user30-python-containers --description="Python Containers Practice"
+
+Suppose we want to start up an application that is a runnable container image. In this case, it is a Docker format linux container (OCI) I created with podman in the chapter on persistent storage.
+
+Let's log into OpenShift and the Registry with our regular but registry permissions bound user: 
+
+[source,bash]
+$ oc login -u user30 -p 'r3dh4t1!' https://api.cluster-c4fe.c4fe.sandbox1777.opentlc.com:6443
+
+Then log into the registry with podman. We will use the user token for the password, and we will log into the route for the registry
+
+[source,bash]
+$ podman login -u $(oc whoami) -p $(oc whoami -t) default-route-openshift-image-registry.apps.cluster-c4fe.c4fe.sandbox1777.opentlc.com --
+
+Simply by issuing the `oc new-app` command the application will deploy:
+
+
+
+This is the result of that command:
+
+```
+--> Found container image 67d3724 (36 minutes old) from quay.io for "quay.io/jdbarlow/big-test-py:v6"
+
+    * An image stream tag will be created as "big-test-py:v6" that will track this image
+
+--> Creating resources ...
+    imagestream.image.openshift.io "big-test-py" created
+    deployment.apps "big-test-py" created
+    service "big-test-py" created
+--> Success
+    Application is not exposed. You can expose services to the outside world by executing one or more of the commands below:
+     'oc expose svc/big-test-py' 
+    Run 'oc status' to view your app.
+```
+
+TIP: To access the image from a browser or a curl command, follow the recommendation from the above to create a route that is linked to the service:
+```
+oc expose svc/big-test-py
+```
+To see the route, use the get command
+
+```
+oc get routes
+```
+big-test-py   big-test-py-user30-python-containers.apps.cluster-c4fe.c4fe.sandbox1777.opentlc.com          big-test-py   8080-tcp 
+```
+
+The second entry on that line is the URL to our application, in this case accessible via http
+
+== Pushing to the OpenShift Registry
+
+
+return to your normal user status
+
+$ oc login -u user30
+
+
+
+Now we want to tag the image for uploading. In my case, I want big-test-py v6 to upload. Note the addition of port 5000 to the 
+ $ oc login -u 
+
+ $ podman login -u `oc whoami` -p `oc whoami -t` default-route-openshift-image-registry.apps.cluster-c4fe.c4fe.sandbox1777.opentlc.com --tls-verify=false
+
+ $ podman tag 4b268aa9e073 default-route-openshift-image-registry.apps.cluster-c4fe.c4fe.sandbox1777.opentlc.com/user30-python-containers/plone:v1
+
+podman push default-route-openshift-image-registry.apps.cluster-c4fe.c4fe.sandbox1777.opentlc.com/user30-python-containers/plone:v1
+
+```
+Getting image source signatures
+Copying blob 603d0695860f done  
+Copying blob b986ceddf07c done  
+Copying blob 27eeb099e9e7 done  
+Copying blob 1eaab9ab89e0 done  
+Copying blob 49756a12cc23 done  
+Copying blob 87c8a1d8f54f done  
+Copying blob 393f6e463fe3 done  
+Copying blob b37b09d76849 done  
+Copying blob a857e33af75c done  
+Copying config c15a4c58f4 done  
+Writing manifest to image destination
+Storing signatures
+$
+```
+
+link:https://docs.openshift.com/container-platform/4.6/registry/securing-exposing-registry.html

@@ -80,11 +80,24 @@ UNTILHERE
 Finally, let's run the command that puts it all together:
 
 [source,bash]
-$ podman build -f Dockerfile.hello-world -t hello-world-py
+big-test-py
 
-Here is what happened on my machine:
+python-38-rhel7
 
-```
+python-data-list
+
+python39
+
+s2i-3.9-fedora
+
+ubi
+
+ubi-httpd
+
+    Documentation Terms Privacy Security About Contact
+    All Systems Operational
+
+
 STEP 1: FROM python:3.9-buster
 STEP 2: MAINTAINER YourNameHere imnota@yahoo.com
 --> Using cache 7f2392e40e32b4155cf7dd1aeeb951950f0bd44ba53b3daf4789fd051336b750
@@ -102,9 +115,24 @@ Collecting Jinja2>=2.10.1
   Downloading Jinja2-2.11.2-py2.py3-none-any.whl (125 kB)
      |████████████████████████████████| 125 kB 1.9 MB/s 
 Collecting MarkupSafe>=0.23
-  Downloading MarkupSafe-1.1.1.tar.gz (19 kB)
-Collecting pytz
-  Downloading pytz-2020.4-py2.py3-none-any.whl (509 kB)
+big-test-py
+
+python-38-rhel7
+
+python-data-list
+
+python39
+
+s2i-3.9-fedora
+
+ubi
+
+ubi-httpd
+
+    Documentation Terms Privacy Security About Contact
+    All Systems Operational
+
+
      |████████████████████████████████| 509 kB 1.7 MB/s 
 Collecting six>=1.3.0
   Downloading six-1.15.0-py2.py3-none-any.whl (10 kB)

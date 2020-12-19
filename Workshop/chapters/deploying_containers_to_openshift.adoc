@@ -15,7 +15,7 @@ endif::[]
 
 == Using the OpenShift Registry as Your Enterprise Registry (PoC style)
 
-If you want to use the OpenShift registry as the main registry (no enteprise, docker, or quay registry) Here is how to configure that. See the actual documentation link at the bottom of this page.
+If you want to use the OpenShift registry as the main registry (no enterprise, docker, or quay registry) Here is how to configure that. See the actual documentation link at the bottom of this page.
 
 First you must `oc login` as a cluster-admin, in order to create the path to the registry. The registry is not accessible outside of the cluster by default. It is really intended to be a downstream caching registry
 
@@ -34,7 +34,8 @@ Next we need to see if there is an external route to the registry.
 
 The documentation on how to expose the registry is here for version 4.6. 
 
-```oc get routes -n openshift-image-registry```
+[source,bash]
+oc get routes -n openshift-image-registry
 
 If no routes are listed, proceed.
 
@@ -42,13 +43,15 @@ Here is the command to patch the registry operator to generate a default (not ve
 
 [source,bash]
 ----
-$ oc patch configs.imageregistry.operator.openshift.io/cluster --patch '{"spec":{"defaultRoute":true}}' --type=merge```
+$ oc patch configs.imageregistry.operator.openshift.io/cluster --patch '{"spec":{"defaultRoute":true}}' --type=merge
 
 $ oc get routes -n openshift-image-registry
 ----
 yielded as the route:
 
-```default-route   default-route-openshift-image-registry.apps.cluster-c4fe.c4fe.sandbox1777.opentlc.com```
+```
+default-route   default-route-openshift-image-registry.apps.cluster-c4fe.c4fe.sandbox1777.opentlc.com
+```
 
 === Grant the users permissions to the registry
 

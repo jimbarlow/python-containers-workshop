@@ -65,11 +65,12 @@ $ oc policy add-role-to-user registry-editor user30
 $ oc policy add-role-to-user registry-viewer user30
 ----
 
-== Using the Registry for Direct Pushes
+=== Using the Registry for Direct Pushes
 
-Pushes to the registry must occur within a "project" or "namespace"
+Pushes to the registry must occur within a "project" or "namespace". Let's create a new project
 
-oc new-project user30-python-containers --description="Python Containers Practice"
+[source,bash]
+$ oc new-project user30-python-containers --description="Python Containers Practice"
 
 Suppose we want to start up an application that is a runnable container image. In this case, it is a Docker format linux container (OCI) I created with podman in the chapter on persistent storage.
 
@@ -81,13 +82,10 @@ $ oc login -u user30 -p 'r3dh4t1!' https://api.cluster-c4fe.c4fe.sandbox1777.ope
 Then log into the registry with podman. We will use the user token for the password, and we will log into the route for the registry
 
 [source,bash]
-$ podman login -u $(oc whoami) -p $(oc whoami -t) default-route-openshift-image-registry.apps.cluster-c4fe.c4fe.sandbox1777.opentlc.com --
+$ podman login -u $(oc whoami) -p $(oc whoami -t) default-route-openshift-image-registry.apps.cluster-c4fe.c4fe.sandbox1777.opentlc.com
 
-Simply by issuing the `oc new-app` command the application will deploy:
+We will get a `login succeeded` response from the above command.
 
-
-
-This is the result of that command:
 
 ```
 --> Found container image 67d3724 (36 minutes old) from quay.io for "quay.io/jdbarlow/big-test-py:v6"

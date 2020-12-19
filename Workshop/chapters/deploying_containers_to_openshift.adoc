@@ -57,11 +57,13 @@ default-route   default-route-openshift-image-registry.apps.cluster-c4fe.c4fe.sa
 
 We will be granting rights to user30 in this example. registry-editor allows for pushing to the registry, and registry-viewer allows use of the registry.
 
+[source,bash]
+----
 $ oc whoami
 opentlc-mgr 
 $ oc policy add-role-to-user registry-editor user30
 $ oc policy add-role-to-user registry-viewer user30
-===
+----
 
 == Using the Registry for Direct Pushes
 

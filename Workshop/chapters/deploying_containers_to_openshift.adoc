@@ -139,7 +139,7 @@ We can now deploy this image from the webgui or the command line interface.
 
 Let's do this through the webgui. Note that we have selected the `Developer` persona, and that we are in the `user30-python-container` project
 
-image::service_catalog.png[Create Form,500,500]
+image::service_catalog.png[Create Form,400,400, align="center"]
 
 An empty project offers up the service catalog when there is no topology to display. Note that once we select internal registry, we are offered drop downs for our image and tag. Fill in the whole form, and press `Create`
 

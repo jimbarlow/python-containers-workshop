@@ -32,22 +32,41 @@ Next we need to see if there is an external route to the registry.
 
 === Exposing the registry
 
-The documentation on how to expose the registry is here for version 4.6. 
+The documentation on how to expose the registry is :link:https://docs.openshift.com/container-platform/4.6/registry/securing-exposing-registry.html[here] for version 4.6. 
+
+First determine that there isn't a route to the registry already
 
 [source,bash]
-oc g
-
 $ oc get routes -n openshift-image-registry
-----
-yielded as the route:
 
+If this comes back empty, proceed to the next step
+
+[source,bash]
+$ oc patch configs.imageregistry.operator.openshift.io/cluster --patch '{"spec":{"defaultRoute":true}}' --type=merge
+
+Now you should see the registry route on the next run of this command:
+
+[source,bash]
+$ oc get routes -n openshift-image-registry
+
+yeilds:
+
+````
+NAME            HOST/PORT                                                                               PATH   SERVICES         PORT    TERMINATION   WILDCARD
+default-route   default-route-openshift-image-registry.apps.cluster-c4fe.c4fe.sandbox1777.opentlc.com          image-registry   <all>   reencrypt     None
 ```
-registry, and registry-viewer allows use of the registry.
+
+Now we need to provide our user the privileges of using the registry. Two roles, `registry-editor`, and `registry-viewer` determine who and how a user can use of the registry.
 
 [source,bash]
 ----
-$ oc whoami     # the opentlc-mgr happens to be cluster-admin on my system
+$ oc whoami     # the opentlc-mgr happens to be cluster-admin on my system, verify that is who you are.
 opentlc-mgr 
+
+Now use the `oc policy` command to assign privileges of writing to the registry, and reading (deploying) from the registry:
+
+[source,bash]
+----
 $ oc policy add-role-to-user registry-editor user30
 $ oc policy add-role-to-user registry-viewer user30
 ----

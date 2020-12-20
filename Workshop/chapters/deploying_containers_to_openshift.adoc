@@ -147,19 +147,20 @@ image:registry-container-deploy.png[How it is done!]
 
 The second entry on that line is the URL to our application, in this case accessible via http
 
-When we created this container, we used Red Hat's :link:./building_python_containers.adoc[s2i build lab method] 
+When we created this container, we used Red Hat's link:./building_python_containers.adoc[s2i build lab exercise] 
 
-That build method is supposed to automatically detect the application, and launch it with the Gunicorn WSGI HTTP server. How can we be sure, in case we happen to be skeptical, or 
-just curious?
+That build method is supposed to automatically detect the application, and launch it with the Gunicorn WSGI HTTP server. 
 
 Let's log into the pod and see what is actually running:
 
-You may be curious. If you hit the link to the running pod, you will get a response:
+If you hit the link to the running pod, you will get a response:
 image::running-container.png[]
 
 Following that link will provide the following response in the browser:
 
 image::hello-world-browser.png[]
+
+How can we be sure that this "automatically" implemented a deployment with Gunicorn?  Let's log into the pod and verify"
 
 
 ```
@@ -167,7 +168,7 @@ $ oc get pods
 NAME                                READY   STATUS    RESTARTS   AGE
 python-data-list-674d86d9b9-27d8w   1/1     Running   0          150m
 
-oc rsh python-data-list-674d86d9b9-27d8w
+$ oc rsh python-data-list-674d86d9b9-27d8w
 
 (app-root) sh-5.0$
 (app-root) sh-5.0$ ps -ef
@@ -191,6 +192,10 @@ UID          PID    PPID  C STIME TTY          TIME CMD
 (app-root) sh-5.0$ 
 
 ```
-We see that indeed, there are multiple threads of Gunicorn running rout Flask application.
+We see that indeed, there are multiple threads of Gunicorn running our Flask application.
 
 link:https://docs.openshift.com/container-platform/4.6/registry/securing-exposing-registry.html[]
+
+== Source to Image (s2i) Build Within OpenShift
+
+Another method to deploy containers without an "upstream" registry is to build the container image automatically _within_ OpenShift

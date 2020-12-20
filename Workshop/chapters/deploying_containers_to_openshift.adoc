@@ -137,7 +137,7 @@ Storing signatures
 
 We can now deploy this image from the webgui or the command line interface.
 
-Let's do this through the webgui. Note that we have selected the `Developer` persona, and that we are in the `user30-python-container` project
+Let's do this through the webgui. Note that we have selected the `Developer` persona in the upper left, and that we are in the `user30-python-container` project
 
 image::service_catalog.png[alt="Service Catalog",align="center"]
 
@@ -145,64 +145,7 @@ An empty project offers up the service catalog when there is no topology to disp
 
 image:registry-container-deploy.png[How it is done!]
 
---> Found container image 67d3724 (36 minutes old) from quay.io for "quay.io/jdbarlow/big-test-py:v6"
-
-    * An image stream tag will be created as "big-test-py:v6" that will track this image
-
---> Creating resources ...
-    imagestream.image.openshift.io "big-test-py" created
-    deployment.apps "big-test-py" created
-    service "big-test-py" created
---> Success
-    Application is not exposed. You can expose services to the outside world by executing one or more of the commands below:
-     'oc expose svc/big-test-py' 
-    Run 'oc status' to view your app.
-```
-
-TIP: To access the image from a browser or a curl command, follow the recommendation from the above to create a route that is linked to the service:
-```
-oc expose svc/big-test-py
-```
-To see the route, use the get command
-
-```
-oc get routes
-```
-big-test-py   big-test-py-user30-python-containers.apps.cluster-c4fe.c4fe.sandbox1777.opentlc.com          big-test-py   8080-tcp 
-```
-
 The second entry on that line is the URL to our application, in this case accessible via http
-
-== Pushing to the OpenShift Registry
-
-
-return to your normal user status
-
-$ oc login -u user30
-
-
- $ podman login -u `oc whoami` -p `oc whoami -t` default-route-openshift-image-registry.apps.cluster-c4fe.c4fe.sandbox1777.opentlc.com --tls-verify=false
-
- $ podman tag 4b268aa9e073 default-route-openshift-image-registry.apps.cluster-c4fe.c4fe.sandbox1777.opentlc.com/user30-python-containers/plone:v1
-
-podman push default-route-openshift-image-registry.apps.cluster-c4fe.c4fe.sandbox1777.opentlc.com/user30-python-containers/plone:v1
-
-```
-Getting image source signatures
-Copying blob 603d0695860f done  
-Copying blob b986ceddf07c done  
-Copying blob 27eeb099e9e7 done  
-Copying blob 1eaab9ab89e0 done  
-Copying blob 49756a12cc23 done  
-Copying blob 87c8a1d8f54f done  
-Copying blob 393f6e463fe3 done  
-Copying blob b37b09d76849 done  
-Copying blob a857e33af75c done  
-Copying config c15a4c58f4 done  
-Writing manifest to image destination
-Storing signatures
-$
-```
 
 When we created this container, we used Red Hat's :link:./building_python_containers.adoc[s2i build lab method] 
 

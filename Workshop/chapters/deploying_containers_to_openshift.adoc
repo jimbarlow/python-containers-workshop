@@ -49,10 +49,9 @@ Now you should see the registry route on the next run of this command:
 [source,bash]
 $ oc get routes -n openshift-image-registry
 
-yeilds:
+yields:
 
-````
-NAME            HOST/PORT                                                                               PATH   SERVICES         PORT    TERMINATION   WILDCARD
+```
 default-route   default-route-openshift-image-registry.apps.cluster-c4fe.c4fe.sandbox1777.opentlc.com          image-registry   <all>   reencrypt     None
 ```
 

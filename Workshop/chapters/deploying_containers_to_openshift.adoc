@@ -77,14 +77,51 @@ Suppose we want to start up an application that is a runnable container image. I
 Let's log into OpenShift and the Registry with our regular but registry permissions bound user: 
 
 [source,bash]
-$ oc login -u user30 -p 'r3dh4t1!' https://api.cluster-c4fe.c4fe.sandbox1777.opentlc.com:6443
+$ oc login -u user30 -p 'r3dh4t1!'  https://api.cluster-c4fe.c4fe.sandbox1777.opentlc.com:6443
 
 Then log into the registry with podman. We will use the user token for the password, and we will log into the route for the registry
 
 [source,bash]
-$ podman login -u $(oc whoami) -p $(oc whoami -t) default-route-openshift-image-registry.apps.cluster-c4fe.c4fe.sandbox1777.opentlc.com
+$ podman login -u $(oc whoami) -p $(oc whoami -t) --tls-verify=false default-route-openshift-image-registry.apps.cluster-c4fe.c4fe.sandbox1777.opentlc.com  
+
+TIP: Do not forget the `--tls-verify=false` parameter. The OpenShift platform as deployed for Proof of Concepts and workshops usually has self-signed certificates.
 
 We will get a `login succeeded` response from the above command.
+
+Now we are ready to push our image. Let's see what we have on the system. I have one image that was prepared using the s2i command. Source to image which assembles a python flask app onto a builder image, and automatically provides and configures `gunicorn` as a WSGI gateay.
+
+IMAGE:python-image.png[Here is a simple python gunicorn app image]
+
+Let's tag the image so that it can go into the OpenShift Registry. 
+WARNING: You have to push an image into a subdirectory of the registry, meaning a specific project.
+
+First we will create the project, and then tag the image to match that project.
+
+[source,bash]
+----
+$ oc new-project python-containers
+
+$ podman tag quay.io/jdbarlow/python-data-list:v1 default-route-openshift-image-registry.apps.cluster-c4fe.c4fe.sandbox1777.opentlc.com/user30-python-containers/python-data-list:v1
+
+$ podman push default-route-openshift-image-registry.apps.cluster-c4fe.c4fe.sandbox1777.opentlc.com/user30-python-containers/python-data-list:v1
+----
+
+The result will be the image, which is ready to be pushed to the registry:
+
+```
+[jbarlow@podman ~]$ podman images
+REPOSITORY                                                                                                                        TAG   IMAGE ID       CREATED      SIZE
+quay.io/jdbarlow/python-data-list                                                                                                 v1    4ce16da61605   8 days ago   1.04 GB
+default-route-openshift-image-registry.apps.cluster-c4fe.c4fe.sandbox1777.opentlc.com/user30-python-containers/python-data-list   v1    4ce16da61605   8 days ago   1.04 GB
+[jbarlow@podman ~]$ 
+```
+
+Now for the actual push:
+
+[source,bash]
+
+
+
 
 
 ```
@@ -123,10 +160,6 @@ return to your normal user status
 
 $ oc login -u user30
 
-
-
-Now we want to tag the image for uploading. In my case, I want big-test-py v6 to upload. Note the addition of port 5000 to the 
- $ oc login -u 
 
  $ podman login -u `oc whoami` -p `oc whoami -t` default-route-openshift-image-registry.apps.cluster-c4fe.c4fe.sandbox1777.opentlc.com --tls-verify=false
 

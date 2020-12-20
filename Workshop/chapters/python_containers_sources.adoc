@@ -33,26 +33,12 @@ link:https://thoth-station.ninja/[Project Thoth]
 The following are free live tutorials hosted on Katacoda and sponsored by Red Hat. They live background hosts and clusters, and not simulations.
 
 link:https://github.com/sclorg/s2i-python-container[The GitHub Repository for the Source to Image Containers]
-
-link:https://www.katacoda.com/courses/openshift/ai-machine-learning/thoth-s2i-advise[Building s2i with Thoth Advice]
-
-link:https://www.katacoda.com/courses/openshift/ai-machine-learning/thoth-s2i-provenance[Building s2i with Thoth Provenance]
-
-Introduction by Red Hat's Scott McCarty of the Universal Base Image concept (UBI)
-
-link:https://www.redhat.com/en/blog/introducing-red-hat-universal-base-image[Introducing the Red Hat Universal Base Image]
+😕
 
 link:https://github.com/openshift-katacoda/blog-django-py/[ Graham Dumpleton's Django S2I Build for OpenShift]
 
 
-=== Docker.com Articles
-
-The following is a series of three articles by Anca Jordache on developing on Python (Flask) with the debugger on to provide a live coding experience
-
-link:https://www.docker.com/blog/containerized-python-development-part-1/[Flask Development on Docker Part 1]
-
-link:https://www.docker.com/blog/containerized-python-development-part-2/[Flask Development on Docker Part 2]
-
+=== Docker.com Articles😕
 link:https://www.docker.com/blog/containerized-python-development-part-3/[Flask Development on Docker Part 3]
 
 
@@ -61,4 +47,4 @@ link:https://www.docker.com/blog/containerized-python-development-part-3/[Flask 
 Red Hat has been running a series of informal "live coding" events on the topic of containers on openshift.tv (Twitch and Youtube). This is called TLH (The Level-up Hour) by Langdon White. 
 
 link:../containers.adoc[Return to workshop top page]
-
+😕

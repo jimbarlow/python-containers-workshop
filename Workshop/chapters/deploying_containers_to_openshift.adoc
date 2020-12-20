@@ -75,7 +75,7 @@ We will get a `login succeeded` response from the above command.
 
 Now we are ready to push our image. Let's see what we have on the system. I have one image that was prepared using the s2i command. Source to image which assembles a python flask app onto a builder image, and automatically provides and configures `gunicorn` as a WSGI gateay.
 
-image:python-image.png[Here is a simple python gunicorn app image]
+image::python-image.png[Here is a simple python gunicorn app image]
 
 Let's tag the image so that it can go into the OpenShift Registry. 
 WARNING: You have to push an image into a subdirectory of the registry, meaning a specific project.
@@ -123,7 +123,7 @@ Let's do this through the webgui. Note that we have selected the `Developer` per
 
 image::service-catalog.png[An empty project offers up the service catalog when there is no topology to display. Note that once we select internal registry, we are offered drop downs for our image and tag. Fill in the whole form, and press `Create`
 
-image:registry-container-deploy.png[How it is done!]
+image::registry-container-deploy.png[How it is done!]
 
 --> Found container image 67d3724 (36 minutes old) from quay.io for "quay.io/jdbarlow/big-test-py:v6"
 

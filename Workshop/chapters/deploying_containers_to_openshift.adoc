@@ -149,12 +149,18 @@ The second entry on that line is the URL to our application, in this case access
 
 When we created this container, we used Red Hat's :link:./building_python_containers.adoc[s2i build lab method] 
 
-That build method is supposed to automatically detect the application, and launch it with the Gunicorn WSGI HTTP server. How can we be sure, in case we happen to be skeptical, or just curious?
+That build method is supposed to automatically detect the application, and launch it with the Gunicorn WSGI HTTP server. How can we be sure, in case we happen to be skeptical, or 
+just curious?
 
 Let's log into the pod and see what is actually running:
 
 You may be curious. If you hit the link to the running pod, you will get a response:
 image::running-container.png[]
+
+Following that link will provide the following response in the browser:
+
+image::hello-world-browser.png[]
+
 
 ```
 $ oc get pods
@@ -185,5 +191,6 @@ UID          PID    PPID  C STIME TTY          TIME CMD
 (app-root) sh-5.0$ 
 
 ```
+We see that indeed, there are multiple threads of Gunicorn running rout Flask application.
 
 link:https://docs.openshift.com/container-platform/4.6/registry/securing-exposing-registry.html[]

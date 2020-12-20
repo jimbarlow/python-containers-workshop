@@ -112,8 +112,9 @@ $ oc tag 4ce16da61605 default-route-openshift-image-registry.apps.cluster-c4fe.c
 
 Once the image is tagged, we can push to that remote registry via the remote repository plus the tag:
 
+[source,bash]
 $ podman push default-route-openshift-image-registry.apps.cluster-c4fe.c4fe.sandbox1777.opentlc.com/user30-python-containers/python-data-list:v1
-----
+
 
 The result will be that the image, will be pushed to the registry, and it will look something like this:
 

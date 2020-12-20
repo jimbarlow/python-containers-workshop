@@ -147,20 +147,20 @@ image:registry-container-deploy.png[How it is done!]
 
 The second entry on that line is the URL to our application, in this case accessible via http
 
-When we created this container, we used Red Hat's link:./building_python_containers.adoc[s2i build lab exercise] 
+When we created this container, we used Red Hat's s2i process and we built it in link:./building_python_containers.adoc[this s2i build lab exercise] 
 
 That build method is supposed to automatically detect the application, and launch it with the Gunicorn WSGI HTTP server. 
 
 Let's log into the pod and see what is actually running:
 
 If you hit the link to the running pod, you will get a response:
-image::running-container.png[]
+image:running-container.png[]
 
 Following that link will provide the following response in the browser:
 
 image::hello-world-browser.png[]
 
-How can we be sure that this "automatically" implemented a deployment with Gunicorn?  Let's log into the pod and verify"
+How can we be sure that this "automatically" implemented a deployment with Gunicorn?  Let's log into the pod and verify:
 
 
 ```

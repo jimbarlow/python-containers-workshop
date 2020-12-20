@@ -61,6 +61,7 @@ Now we need to provide our user the privileges of using the registry. Two roles,
 
 [source,bash]
 $ oc whoami     # the opentlc-mgr happens to be cluster-admin on my system, verify that is who you are.
+
 ```
 opentlc-mgr
 ``` 

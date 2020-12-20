@@ -55,10 +55,13 @@ yields:
 default-route   default-route-openshift-image-registry.apps.cluster-c4fe.c4fe.sandbox1777.opentlc.com          image-registry   <all>   reencrypt     None
 ```
 
+That second entry above, happens to be our route to our exposed internal registry.
+
 Now we need to provide our user the privileges of using the registry. Two roles, `registry-editor`, and `registry-viewer` determine who and how a user can use of the registry.
 
 [source,bash]
 $ oc whoami     # the opentlc-mgr happens to be cluster-admin on my system, verify that is who you are.
+
 ```opentlc-mgr``` 
 
 
@@ -72,11 +75,6 @@ $ oc policy add-role-to-user registry-viewer user30
 ----
 
 === Using the Registry for Direct Pushes
-
-Pushes to the registry must occur within a "project" or "namespace". Let's create a new project
-
-[source,bash]
-$ oc new-project user30-python-containers --description="Python Containers Practice"
 
 Suppose we want to start up an application that is a runnable container image. In this case, it is a Docker format linux container (OCI) I created with podman in the chapter on persistent storage.
 
@@ -92,19 +90,20 @@ TIP: Do not forget the `--tls-verify=false` parameter. The OpenShift platform as
 
 We will get a `login succeeded` response from the above command.
 
+Pushes to the registry must occur within a "project" or "namespace". Let's create a new project
+
+[source,bash]
+$ oc new-project user30-python-containers --description="Python Containers Practice"
+
 Now we are ready to push our image. Let's see what we have on the system. I have one image that was prepared using the s2i command. Source to image which assembles a python flask app onto a builder image, and automatically provides and configures `gunicorn` as a WSGI gateay.
 
-image::python-image.png[Here is a simple python gunicorn app image]
+image:python_image.png[Here is a simple python gunicorn app image]
 
 Let's tag the image so that it can go into the OpenShift Registry. 
 WARNING: You have to push an image into a subdirectory of the registry, meaning a specific project.
 
-We created the project above. If you recall it is user30-python-containers. Now we need to tag the image to match the registry host and that project.
+We created the project above. If you recall it is user30-python-containers. Now we need to tag the image to match the registry host and that project. Let's see what we have locally
 
-[so
-e is what we will have if we list the images:
-
-```
 [jbarlow@podman ~]$ podman images
 REPOSITORY                                                                                                                        TAG   IMAGE ID       CREATED      SIZE
 quay.io/jdbarlow/python-data-list                                                                                                 v1    4ce16da61605   8 days ago   1.04 GB

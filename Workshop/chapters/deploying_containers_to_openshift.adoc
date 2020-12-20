@@ -154,11 +154,11 @@ That build method is supposed to automatically detect the application, and launc
 Let's log into the pod and see what is actually running:
 
 If you hit the link to the running pod, you will get a response:
-image:running-container.png[]
+image:running-container.png[width=400,caption="Here is our Deployment in Topology"]
 
 Following that link will provide the following response in the browser:
 
-image::hello-world-browser.png[width=300]
+image::hello-world-browser.png[]
 
 How can we be sure that this "automatically" implemented a deployment with Gunicorn?  Let's log into the pod and verify:
 

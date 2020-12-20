@@ -206,6 +206,13 @@ $
 
 When we created this container, we used Red Hat's :link:./building_python_containers.adoc[s2i build lab method] 
 
+That build method is supposed to automatically detect the application, and launch it with the Gunicorn WSGI HTTP server. How can we be sure, in case we happen to be skeptical, or just curious?
+
+Let's log into the pod and see what is actually running:
+
+You may be curious. If you hit the link to the running pod, you will get a response:
+image::running-container.png[]
+
 ```
 $ oc get pods
 NAME                                READY   STATUS    RESTARTS   AGE
@@ -234,6 +241,6 @@ UID          PID    PPID  C STIME TTY          TIME CMD
 1000890+      36      30  0 16:48 pts/0    00:00:00 ps -ef
 (app-root) sh-5.0$ 
 
-
+```
 
 link:https://docs.openshift.com/container-platform/4.6/registry/securing-exposing-registry.html[]

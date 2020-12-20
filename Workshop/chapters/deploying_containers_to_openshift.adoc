@@ -158,7 +158,7 @@ image:running-container.png[]
 
 Following that link will provide the following response in the browser:
 
-image::hello-world-browser.png[]
+image::hello-world-browser.png[width=400]
 
 How can we be sure that this "automatically" implemented a deployment with Gunicorn?  Let's log into the pod and verify:
 

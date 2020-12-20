@@ -67,6 +67,7 @@ Now use the `oc policy` command to assign privileges of writing to the registry,
 [source,bash]
 ----
 $ oc policy add-role-to-user registry-editor user30
+
 $ oc policy add-role-to-user registry-viewer user30
 ----
 
@@ -81,8 +82,8 @@ Suppose we want to start up an application that is a runnable container image. I
 
 Let's log into OpenShift and the Registry with our regular but "registry" enabled user: 
 
-[sou
- log into the route for the registry
+[source,bash]
+$ oc login -u user30 -p `r3dh4t1!` https://api.cluster-c4fe.c4fe.sandbox1777.opentlc.com:6443
 
 [source,bash]
 $ podman login -u $(oc whoami) -p $(oc whoami -t) --tls-verify=false default-route-openshift-image-registry.apps.cluster-c4fe.c4fe.sandbox1777.opentlc.com  

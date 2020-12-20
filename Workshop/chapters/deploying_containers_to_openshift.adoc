@@ -35,27 +35,14 @@ Next we need to see if there is an external route to the registry.
 The documentation on how to expose the registry is here for version 4.6. 
 
 [source,bash]
-oc get routes -n openshift-image-registry
-
-If no routes are listed, proceed.
-
-Here is the command to patch the registry operator to generate a default (not very pretty) functional route:
-
-[source,bash]
-----
-$ oc patch configs.imageregistry.operator.openshift.io/cluster --patch '{"spec":{"defaultRoute":true}}' --type=merge
+oc g
 
 $ oc get routes -n openshift-image-registry
 ----
 yielded as the route:
 
 ```
-default-route   default-route-openshift-image-registry.apps.cluster-c4fe.c4fe.sandbox1777.opentlc.com
-```
-
-=== Grant the users permissions to the registry
-
-We will be granting rights to user30 in this example. registry-editor allows for pushing to the registry, and registry-viewer allows use of the registry.
+registry, and registry-viewer allows use of the registry.
 
 [source,bash]
 ----
@@ -76,10 +63,8 @@ Suppose we want to start up an application that is a runnable container image. I
 
 Let's log into OpenShift and the Registry with our regular but "registry" enabled user: 
 
-[source,bash]
-$ oc login -u user30 -p 'r3dh4t1!'  https://api.cluster-c4fe.c4fe.sandbox1777.opentlc.com:6443
-
-Then log into the registry with podman. We will use the user token for the password, and we will log into the route for the registry
+[sou
+ log into the route for the registry
 
 [source,bash]
 $ podman login -u $(oc whoami) -p $(oc whoami -t) --tls-verify=false default-route-openshift-image-registry.apps.cluster-c4fe.c4fe.sandbox1777.opentlc.com  
@@ -97,11 +82,8 @@ WARNING: You have to push an image into a subdirectory of the registry, meaning 
 
 We created the project above. If you recall it is user30-python-containers. Now we need to tag the image to match the registry host and that project.
 
-[source,bash]
-----
-
-$ podman tag quay.io/jdbarlow/python-data-list:v1 default-route-openshift-image-registry.apps.cluster-c4fe.c4fe.sandbox1777.opentlc.com/user30-python-containers/python-data-list:v1 
-Here is what we will have if we list the images:
+[so
+e is what we will have if we list the images:
 
 ```
 [jbarlow@podman ~]$ podman images
@@ -139,9 +121,9 @@ We can now deploy this image from the webgui or the command line interface.
 
 Let's do this through the webgui. Note that we have selected the `Developer` persona, and that we are in the `user30-python-container` project
 
-image:service-catalog.png[An empty project offers up the service catalog when there is no topology to display. Note that once we select internal registry, we are offered drop downs for our image and tag. Fill in the whole form, and press `Create`
+image::service-catalog.png[An empty project offers up the service catalog when there is no topology to display. Note that once we select internal registry, we are offered drop downs for our image and tag. Fill in the whole form, and press `Create`
 
-image:registry-container-deploy[How it is done!]
+image:registry-container-deploy.png[How it is done!]
 
 --> Found container image 67d3724 (36 minutes old) from quay.io for "quay.io/jdbarlow/big-test-py:v6"
 
@@ -202,4 +184,4 @@ Storing signatures
 $
 ```
 
-link:https://docs.openshift.com/container-platform/4.6/registry/securing-exposing-registry.html
+link:https://docs.openshift.com/container-platform/4.6/registry/securing-exposing-registry.html[]

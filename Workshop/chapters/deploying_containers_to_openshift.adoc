@@ -61,8 +61,9 @@ Now we need to provide our user the privileges of using the registry. Two roles,
 
 [source,bash]
 $ oc whoami     # the opentlc-mgr happens to be cluster-admin on my system, verify that is who you are.
-
-```opentlc-mgr``` 
+```
+opentlc-mgr
+``` 
 
 
 Now use the `oc policy` command to assign privileges of writing to the registry, and reading (deploying) from the registry:

@@ -168,12 +168,14 @@ How can we be sure that this "automatically" implemented a deployment with Gunic
 $ oc get pods
 NAME                                READY   STATUS    RESTARTS   AGE
 python-data-list-674d86d9b9-27d8w   1/1     Running   0          150m
+```
 
+[source,bash]
 $ oc rsh python-data-list-674d86d9b9-27d8w
-
 (app-root) sh-5.0$
 (app-root) sh-5.0$ ps -ef
 
+```
 UID          PID    PPID  C STIME TTY          TIME CMD
 1000890+       1       0  0 14:18 ?        00:00:01 /opt/app-root/bin/python3.9 /opt/app-root/bin/gunicorn testapp --bind=0.0.0.0:8080 -
 1000890+      18       1  0 14:18 ?        00:00:00 /opt/app-root/bin/python3.9 /opt/app-root/bin/gunicorn testapp --bind=0.0.0.0:8080 -
@@ -191,8 +193,9 @@ UID          PID    PPID  C STIME TTY          TIME CMD
 1000890+      30       0  0 16:48 pts/0    00:00:00 /bin/sh
 1000890+      36      30  0 16:48 pts/0    00:00:00 ps -ef
 (app-root) sh-5.0$ 
-
 ```
+
+
 We see that indeed, there are multiple threads of Gunicorn running our Flask application.
 
 link:https://docs.openshift.com/container-platform/4.6/registry/securing-exposing-registry.html[]

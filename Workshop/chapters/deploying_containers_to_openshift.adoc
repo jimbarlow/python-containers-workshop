@@ -154,7 +154,8 @@ That build method is supposed to automatically detect the application, and launc
 Let's log into the pod and see what is actually running:
 
 
-image:running-container.png[float="left", width=500,caption="Here is our Deployment in Topology"]
+image:running-container.png[float="left", width=500,title="Here is our Deployment in Topology"]
+
 
 If you look at the topology depiction of the deployment you will see that there is a link in the upper right to the application path. Following that link will provide the following response in the browser:
 

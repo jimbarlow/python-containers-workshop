@@ -202,4 +202,14 @@ link:https://docs.openshift.com/container-platform/4.6/registry/securing-exposin
 
 == Source to Image (s2i) Build Within OpenShift
 
-Another method to deploy containers without an "upstream" registry is to build the container image automatically _within_ OpenShift
+Another method to deploy containers without an "upstream" registry is to build the container image automatically _within_ OpenShift.
+
+This method requires an upstream external builder image, from Red Hat. It also requires that your source code is in a "git style" repository.
+
+In this example, I'm using the following example code:
+
+[source,bash]
+$ oc project user30-python-containers
+
+image:add-s2i-openshift.png[title="Add a Git Project"]
+

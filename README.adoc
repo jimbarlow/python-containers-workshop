@@ -2,3 +2,8 @@
 
 Is located here: 
 link:Workshop/containers.adoc[Actual Workshop Link]
+
+To Do:
+. containers creation best practices reference
+. assemble script use for copying files in s2i in OpenShift
+. Quay.io tutorial

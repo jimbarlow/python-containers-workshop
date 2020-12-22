@@ -12,7 +12,7 @@ endif::[]
 
 = Persistent Storage on a Server
 
-link:../containers.adoc[Return to workshop top page]
+
 
 It is time to look at two approaches to getting files access for your containerized Python application.
 

@@ -396,10 +396,7 @@ This outputs:
 [2020-12-11 03:03:54 +0000] [1] [INFO] Using worker: sync
 [2020-12-11 03:03:54 +0000] [33] [INFO] Booting worker with pid: 33
 [2020-12-11 03:03:54 +0000] [34] [INFO] Booting worker with pid: 34
-[2020-12-11 03:03:54 +0000] [35] [INFO] Booting worker with pid: 35
-[2020-12-11 03:03:54 +0000] [36] [INFO] Booting worker with pid: 36
-172.17.0.1 - - [11/Dec/2020:03:04:10 +0000] "GET / HTTP/1.1" 200 115 "-" "curl/7.29.0"
-172.17.0.1 - - [11/Dec/2020:03:04:22 +0000] "GET /python_version HTTP/1.1" 200 82 "-" "curl/7.29.0"
+[2020-12-1/home/jbarlow/workspace/python/python-containers-workshop/Workshop/chapters/building_python_containers.adoc - - [11/Dec/2020:03:04:22 +0000] "GET /python_version HTTP/1.1" 200 82 "-" "curl/7.29.0"
 ^C[2020-12-11 03:05:05 +0000] [1] [INFO] Handling signal: int
 [2020-12-11 03:05:05 +0000] [33] [INFO] Worker exiting (pid: 33)
 [2020-12-11 03:05:05 +0000] [34] [INFO] Worker exiting (pid: 34)
@@ -407,11 +404,7 @@ This outputs:
 [2020-12-11 03:05:05 +0000] [35] [INFO] Worker exiting (pid: 35)
 [2020-12-11 03:05:06 +0000] [1] [INFO] Shutting down: Master
 ```
-NOTE: This builder image properly implements the code using gunicorn for more production "gee WSGI" capable results
-
-
-Test the application as per before, use `curl <host>8080` and `curl<host>8080:python_version
-
+NOTE: This /home/jbarlow/workspace/python/python-containers-workshop/Workshop/chapters/building_python_containers.adoc
 TIP: The benefit here, is that there is no fussing about with Dockerfiles or any other configuration. Just the requirements.txt and the source tree.
 
 === Extra Credit Opportunity - Build Your Own Builder Image 

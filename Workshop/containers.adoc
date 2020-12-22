@@ -51,6 +51,11 @@ endif::[]
 == Persistent Storage and Files Access
   * link:{includedir}/persistent_storage_on_a_server.adoc[Persistent Storage]
 
+
+== Deploying Containers to OpenShift
+
+  * link:{includedir}/deploying_containers_to_openshift.adoc
+
 [discrete]
 == Further Reading and Sources Used in this Workshop
 

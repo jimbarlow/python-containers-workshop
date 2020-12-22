@@ -51,16 +51,15 @@ endif::[]
 == Persistent Storage and Files Access
   * link:{includedir}/persistent_storage_on_a_server.adoc[Persistent Storage]
 
-
+[discrete]
 == Deploying Containers to OpenShift
 
-  * link:{includedir}/deploying_containers_to_openshift.adoc
+  * link:{includedir}/deploying_containers_to_openshift.adoc[Deploying to OpenShift]
 
 [discrete]
 == Further Reading and Sources Used in this Workshop
 
   * link:{includedir}/python_containers_sources.adoc[Python Containers Information Sources]
-
 
 [discrete]
 == Additional Materials from a Previous Version
